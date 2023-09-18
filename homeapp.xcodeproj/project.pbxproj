@@ -3,17 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45B255632A94DACE00F94892 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255622A94DACE00F94892 /* loginView.swift */; };
+		45B255672A94FBF100F94892 /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255662A94FBF100F94892 /* homeView.swift */; };
+		45B255692A94FC3900F94892 /* registerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255682A94FC3900F94892 /* registerView.swift */; };
 		45FDB9C62A8279ED0062F259 /* homeappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FDB9C52A8279ED0062F259 /* homeappApp.swift */; };
 		45FDB9C82A8279ED0062F259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FDB9C72A8279ED0062F259 /* ContentView.swift */; };
 		45FDB9CA2A8279EF0062F259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45FDB9C92A8279EF0062F259 /* Assets.xcassets */; };
 		45FDB9CD2A8279EF0062F259 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45FDB9CC2A8279EF0062F259 /* Preview Assets.xcassets */; };
+		45FDB9D62A827CB00062F259 /* Liquid in Frameworks */ = {isa = PBXBuildFile; productRef = 45FDB9D52A827CB00062F259 /* Liquid */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45B255622A94DACE00F94892 /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
+		45B255662A94FBF100F94892 /* homeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeView.swift; sourceTree = "<group>"; };
+		45B255682A94FC3900F94892 /* registerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerView.swift; sourceTree = "<group>"; };
 		45FDB9C22A8279ED0062F259 /* homeapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = homeapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FDB9C52A8279ED0062F259 /* homeappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeappApp.swift; sourceTree = "<group>"; };
 		45FDB9C72A8279ED0062F259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45FDB9D62A827CB00062F259 /* Liquid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				45FDB9C52A8279ED0062F259 /* homeappApp.swift */,
+				45B255622A94DACE00F94892 /* loginView.swift */,
+				45B255682A94FC3900F94892 /* registerView.swift */,
+				45B255662A94FBF100F94892 /* homeView.swift */,
 				45FDB9C72A8279ED0062F259 /* ContentView.swift */,
 				45FDB9C92A8279EF0062F259 /* Assets.xcassets */,
 				45FDB9CE2A8279EF0062F259 /* Info.plist */,
@@ -85,6 +96,9 @@
 			dependencies = (
 			);
 			name = homeapp;
+			packageProductDependencies = (
+				45FDB9D52A827CB00062F259 /* Liquid */,
+			);
 			productName = homeapp;
 			productReference = 45FDB9C22A8279ED0062F259 /* homeapp.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +126,9 @@
 				Base,
 			);
 			mainGroup = 45FDB9B92A8279ED0062F259;
+			packageReferences = (
+				45FDB9D42A827CB00062F259 /* XCRemoteSwiftPackageReference "liquid" */,
+			);
 			productRefGroup = 45FDB9C32A8279ED0062F259 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,6 +156,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FDB9C82A8279ED0062F259 /* ContentView.swift in Sources */,
+				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
+				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
+				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
 				45FDB9C62A8279ED0062F259 /* homeappApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +348,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		45FDB9D42A827CB00062F259 /* XCRemoteSwiftPackageReference "liquid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maustinstar/liquid";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		45FDB9D52A827CB00062F259 /* Liquid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45FDB9D42A827CB00062F259 /* XCRemoteSwiftPackageReference "liquid" */;
+			productName = Liquid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 45FDB9BA2A8279ED0062F259 /* Project object */;
 }
