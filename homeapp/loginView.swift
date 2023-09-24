@@ -36,6 +36,8 @@ struct loginView: View {
                             .frame(width: 30, height: 30)
                     }
                 }
+                .padding(.bottom,20)
+                .offset(x:-5)
                 HStack(){
                     Button(action:{
                         path.append("toLoginCheck")
@@ -70,6 +72,7 @@ struct loginView: View {
                     loginView()
                 }
             }
+
         }
     }
 }
