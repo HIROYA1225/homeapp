@@ -36,7 +36,7 @@ struct loginView: View {
                             .frame(width: 30, height: 30)
                     }
                 }
-                .padding(.bottom,10)
+                .padding(.bottom,20)
                 .offset(x:-5)
                 HStack(){
                     Button(action:{
