@@ -10,10 +10,10 @@ import SwiftUI
 struct loginView: View {
     @State private var email = ""
     @State private var password = ""
-    @State private var active = false
+    @State var path = NavigationPath()
     var body: some View {
-        NavigationStack{
-            VStack(alignment: .center){
+        NavigationStack(path: $path){
+            VStack(){
                 Text("褒めアプテスト")
                     .font(.largeTitle).foregroundColor(Color.black)
                     .padding([.top, .bottom], 40)
@@ -24,7 +24,7 @@ struct loginView: View {
                     .padding()
                     .cornerRadius(20.0)
                 
-                HStack(spacing: 20){
+                HStack(){
                     Button(action:{}){
                         Image("Google_icon")
                             .resizable()
@@ -40,7 +40,7 @@ struct loginView: View {
                 .offset(x:-5)
                 HStack(){
                     Button(action:{
-                        active.toggle()
+                        path.append("toLoginCheck")
                     }){
                         Text("Sign In")
                             .font(.headline)
@@ -49,10 +49,9 @@ struct loginView: View {
                             .background(Color.green)
                             .cornerRadius(15.0)
                     }
-                    .navigationDestination(isPresented: $active, destination: {
-                        registerView()
-                    })
-                    Button(action:{}){
+                    Button(action:{
+                        path.append("toRegister")
+                    }){
                         Text("新規登録")
                             .font(.headline)
                             .foregroundColor(.white)
@@ -61,6 +60,16 @@ struct loginView: View {
                             .cornerRadius(15.0)
                     }
                     
+                }
+            }
+            .navigationDestination(for:String.self){ destination in
+                switch destination {
+                case "toLoginCheck":
+                    homeView()
+                case "toRegister":
+                    registerView()
+                default:
+                    loginView()
                 }
             }
 
