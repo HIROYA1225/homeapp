@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45859F882AC4684300B7F521 /* tabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F872AC4684300B7F521 /* tabView.swift */; };
 		45B255632A94DACE00F94892 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255622A94DACE00F94892 /* loginView.swift */; };
 		45B255672A94FBF100F94892 /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255662A94FBF100F94892 /* homeView.swift */; };
 		45B255692A94FC3900F94892 /* registerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255682A94FC3900F94892 /* registerView.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45859F872AC4684300B7F521 /* tabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabView.swift; sourceTree = "<group>"; };
 		45B255622A94DACE00F94892 /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		45B255662A94FBF100F94892 /* homeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeView.swift; sourceTree = "<group>"; };
 		45B255682A94FC3900F94892 /* registerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerView.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				45FDB9C92A8279EF0062F259 /* Assets.xcassets */,
 				45FDB9CE2A8279EF0062F259 /* Info.plist */,
 				45FDB9CB2A8279EF0062F259 /* Preview Content */,
+				45859F872AC4684300B7F521 /* tabView.swift */,
 			);
 			path = homeapp;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45859F882AC4684300B7F521 /* tabView.swift in Sources */,
 				45FDB9C82A8279ED0062F259 /* ContentView.swift in Sources */,
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
 				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
