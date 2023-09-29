@@ -44,8 +44,6 @@ struct ProfileView: View {
                     .frame(width: 220, height: 15)
                 Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
-            
-            
             VStack{
                 HStack{
                     Text("Gender")
@@ -106,5 +104,11 @@ struct ProfileView: View {
             
             }
         }
+    }
+}
+
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
     }
 }
