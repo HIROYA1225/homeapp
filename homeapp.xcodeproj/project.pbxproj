@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330D241C2ABB22E900269B40 /* ProfileView.swift */; };
+		45859F882AC4684300B7F521 /* tabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F872AC4684300B7F521 /* tabView.swift */; };
 		45B255632A94DACE00F94892 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255622A94DACE00F94892 /* loginView.swift */; };
 		45B255672A94FBF100F94892 /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255662A94FBF100F94892 /* homeView.swift */; };
 		45B255692A94FC3900F94892 /* registerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255682A94FC3900F94892 /* registerView.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		330D241C2ABB22E900269B40 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; usesTabs = 0; };
+		45859F872AC4684300B7F521 /* tabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabView.swift; sourceTree = "<group>"; };
 		45B255622A94DACE00F94892 /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		45B255662A94FBF100F94892 /* homeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeView.swift; sourceTree = "<group>"; };
 		45B255682A94FC3900F94892 /* registerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				45FDB9C92A8279EF0062F259 /* Assets.xcassets */,
 				45FDB9CE2A8279EF0062F259 /* Info.plist */,
 				45FDB9CB2A8279EF0062F259 /* Preview Content */,
+				45859F872AC4684300B7F521 /* tabView.swift */,
 			);
 			path = homeapp;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45859F882AC4684300B7F521 /* tabView.swift in Sources */,
 				45FDB9C82A8279ED0062F259 /* ContentView.swift in Sources */,
 				330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */,
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
@@ -296,7 +300,7 @@
 				DEVELOPMENT_TEAM = 2T7T8V463X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = homeapp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,7 +322,7 @@
 				DEVELOPMENT_TEAM = 2T7T8V463X;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = homeapp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
