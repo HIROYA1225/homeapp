@@ -17,7 +17,7 @@ struct tabView: View {
                     Image(systemName: "house.fill")
                 }
                 .tag(0)
-            playView()
+            ProfileView()
                 .tabItem {
                     Image(systemName: "speaker.wave.3.fill")
                 }
