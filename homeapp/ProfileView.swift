@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var name = ""
+
+    @State private var email = ""
+    @State private var userName = ""
     @State private var gender = ""
     @State private var age = ""
-    @State private var location = ""
-    @State private var about = ""
+    @State private var residence = ""
+    @State private var introduction = ""
+    @State private var profileImageFileName = ""
+
+    @State private var profileImage: Image?
+
+    //ログイン情報
+    @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
+
     let prefectures = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
                        "山形県", "福島県", "茨城県", "栃木県", "群馬県",
                        "埼玉県", "千葉県", "東京都", "神奈川県","新潟県",
@@ -23,7 +32,7 @@ struct ProfileView: View {
                        "徳島県", "香川県", "愛媛県", "高知県", "福岡県",
                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県",
                        "鹿児島県", "沖縄県"]
-    
+
     var body: some View {
         VStack(spacing:30){
 
@@ -38,14 +47,14 @@ struct ProfileView: View {
             }
 
             VStack{
-                TextField("Name", text:self.$name)
+                TextField("Name", text:self.$userName)
                     .keyboardType(.default)
                     .cornerRadius(20.0)
                     .frame(width: 220, height: 15)
                 Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
-            
-            
+
+
             VStack{
                 HStack{
                     Text("Gender")
@@ -59,19 +68,19 @@ struct ProfileView: View {
                 }
                 Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
-            
+
             VStack{
                 TextField("Age", text:self.$age)
                     .keyboardType(.numberPad)
                     .frame(width: 220, height: 15)
                 Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
-            
+
             VStack {
                 HStack{
                     Text("Location")
                         .frame(width: 145, height: 15)
-                    Picker("", selection: self.$location) {
+                    Picker("", selection: self.$residence) {
                         ForEach(prefectures, id: \.self) { item in
                             Text(item)
                         }
@@ -80,31 +89,53 @@ struct ProfileView: View {
                 }
                 Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
-            
+
             VStack{
                 Text("About")
                     .frame(width: 220, height: 15, alignment:.leading)
-                TextEditor(text:self.$about)
+                TextEditor(text:self.$introduction)
                     .keyboardType(.default)
                     .frame(width: 220,height: 150,alignment: .topLeading)
                     .border(Color.black,width: 1)
             }
-            
+
             HStack(){
-                Button(action:{}){
+                Button(action:{
+
+                }){
                     Text("決定")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(20.0)
-                       // .frame(width: 220,height: 10)
+                    // .frame(width: 220,height: 10)
 
                 }
-               // .frame(width: 220,height: 10)
+                // .frame(width: 220,height: 10)
 
-            
+
             }
         }
+        .onAppear() {
+            //ログインユーザ情報取得
+            getLoginUserInfo()
+        }
+    }
+
+    //ログインユーザ情報取得
+    private func getLoginUserInfo() {
+
+        //ユーザコレクション情報の取得
+        self.email = AppLoginUserInfo.email
+        self.userName = AppLoginUserInfo.userName
+        self.gender = AppLoginUserInfo.gender
+        self.age = AppLoginUserInfo.age
+        self.residence = AppLoginUserInfo.residence
+        self.introduction = AppLoginUserInfo.introduction
+        self.profileImageFileName = AppLoginUserInfo.profileImageFileName
+
+        //プロフィール画像の取得
+        self.profileImage = AppLoginUserInfo.profileImage
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 import Firebase
 import GoogleSignIn
+import FirebaseStorage
 
 struct loginView: View {
     @State private var email = ""
@@ -54,15 +55,20 @@ struct loginView: View {
                                 try await googleAuth()
 
                                 //ユーザ情報取得
-                                let success = try await fetchUserInfo(uid: AppLoginUserInfo.userUid)
+                                let success = try await getLoginUserInfo(uid: AppLoginUserInfo.userUid)
                                 if success {
                                     //todoshi ユーザ情報取得成功時
                                     path.append("toLoginCheck")
+
+                                    //todo awaitさせないと画面表示早くなるかも
+                                    try await getProfileImage()
+
                                 } else {
                                     // todoshi エラー処理方法(ログイン情報あるが、名前未設定状態であると思われるため、名前入力画面に遷移させるか)
                                 }
                             } catch {
                                 // 認証に失敗した場合のエラー処理
+                                handleAuthError(error)
                             }
 
                         }
@@ -82,47 +88,28 @@ struct loginView: View {
                 HStack(){
                     Button(action:{
                         Task {
-                            //ログイン処理
                             do {
-                                try await Auth.auth().signIn(withEmail: email, password: password)
-
-                                if let user = Auth.auth().currentUser {
-                                    let uid = user.uid
-                                    AppLoginUserInfo.userUid = uid
-                                    AppLoginUserInfo.email = email
-
-                                    //ログインフラグ
-                                    AppLoginUserInfo.isLoggedIn = true
-
-                                    //ユーザ情報取得
-                                    let success = try await fetchUserInfo(uid: uid)
+                                //ログイン処理
+                                let successLogin = try await emailLogin(email: email, password: password)
+                                if successLogin {
+                                    let success = try await getLoginUserInfo(uid: AppLoginUserInfo.userUid)
                                     if success {
-                                        path.append("toLoginCheck")
 
+//                                        path.append("toLoginCheck")
+
+                                        //todo awaitさせないと画面表示早くなるかも
+                                        try await getProfileImage()
+
+                                        // todo test用遷移
+                                        path.append("toProfile")
                                     } else {
                                         // todoshi エラー処理方法(ログイン情報あるが、名前未設定状態であると思われるため、名前入力画面に遷移させるか)
+
                                     }
                                 }
                             } catch {
                                 // エラー処理
-                                if let errorCode = AuthErrorCode.Code(rawValue: (error as NSError).code) {
-                                    // エラーコードに応じた処理
-                                    switch errorCode {
-                                    case .invalidEmail:
-                                        //todoshi エラー処理方法
-                                        print("入力されたメールアドレスの形式が正しくありません。")
-                                    case .weakPassword:
-                                        print("パスワードが弱すぎます。6文字以上の強固なものを設定してください。")
-                                    case .wrongPassword:
-                                        print("入力されたパスワードが間違っています。")
-                                    case .userNotFound:
-                                        print("入力されたメールアドレスのユーザーは登録されていません。")
-                                    case .networkError:
-                                        print("通信エラーが発生しました。ネットワークの状態を確認してください。")
-                                    default:
-                                        print("予期しないエラーが発生しました。再度お試しいただくか、サポートへお問い合わせください。")
-                                    }
-                                }
+                                handleAuthError(error)
                             }
                         }
                     }){
@@ -152,6 +139,12 @@ struct loginView: View {
                     homeView()
                 case "toRegister":
                     registerView()
+
+                //todo test用=======
+                case "toProfile":
+                    ProfileView()
+                //==================
+                
                 default:
                     loginView()
                 }
@@ -160,8 +153,30 @@ struct loginView: View {
         }
     }
 
+    //Email認証用のログイン
+    private func emailLogin(email: String,password: String) async throws -> Bool {
+
+        return try await withCheckedThrowingContinuation { continuation in
+
+            Auth.auth().signIn(withEmail: email, password: password)
+
+            if let user = Auth.auth().currentUser {
+                let uid = user.uid
+                AppLoginUserInfo.userUid = uid
+                AppLoginUserInfo.email = email
+
+                //ログインフラグ
+                AppLoginUserInfo.isLoggedIn = true
+
+                continuation.resume(returning: true)
+            } else {
+                continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: nil))
+            }
+        }
+    }
+
     //Google認証用のサインアップ
-    func googleAuth() async throws {
+    private func googleAuth() async throws {
 
         guard let clientID: String = FirebaseApp.app()?.options.clientID else { throw AuthError.clientIDNotFound }
         let config: GIDConfiguration = GIDConfiguration(clientID: clientID)
@@ -185,7 +200,7 @@ struct loginView: View {
     }
 
     //Google認証用のログイン
-    func googleLogin(credential: AuthCredential) async throws {
+    private func googleLogin(credential: AuthCredential) async throws {
 
         return try await withCheckedThrowingContinuation { continuation in
             Auth.auth().signIn(with: credential) { authResult, error in
@@ -213,18 +228,18 @@ struct loginView: View {
     }
 
     //Google認証用
-    enum AuthError: Error {
+    private enum AuthError: Error {
         case clientIDNotFound
         case invalidUserOrToken
         case customError(String)
     }
-    enum SignInError: Error {
+    private enum SignInError: Error {
         case customError(String)
     }
 
 
-    //ユーザ情報取得(user collection)
-    func fetchUserInfo(uid: String) async throws -> Bool  {
+    //ユーザ情報取得
+    private func getLoginUserInfo(uid: String) async throws -> Bool  {
         let db = Firestore.firestore()
         let docRef = db.collection(FirestoreCollections.users).document(uid)
 
@@ -250,14 +265,68 @@ struct loginView: View {
         }
     }
 
+    //プロフィール画像取得処理
+    private func getProfileImage() async throws -> Void {
+
+        //uiImageとImage型変換用
+        var uiImageProf: UIImage?
+
+        //デフォルト画像
+        AppLoginUserInfo.profileImage = Image(AppImageName.ProfileImageNoSet_icon)
+
+        //登録画像がある場合、
+        let profileImageFileName = AppLoginUserInfo.profileImageFileName
+        if !profileImageFileName.isEmpty {
+            //画像パス作成
+            let imgDir = URL(string: FirebaseStorage.profileImageDirName)!
+            let imgDirWithSubfolder = imgDir.appendingPathComponent(AppLoginUserInfo.userUid)
+            let proImgFullPath = imgDirWithSubfolder.appendingPathComponent(profileImageFileName).absoluteString
+
+            let storage = Storage.storage()
+            let storageRef = storage.reference()
+            let imagesRef = storageRef.child(proImgFullPath)
+
+            // FirebaseStrageよりプロフィール画像を取得する
+            imagesRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                if let error = error {
+                    print("登録プロフィール画像取得失敗: \(error)")
+                } else if let data = data {
+                    uiImageProf = UIImage(data: data)
+                    AppLoginUserInfo.profileImage = Image(uiImage: uiImageProf!)
+                }
+            }
+        }
+    }
+
+
+    //ログインエラー
+    private func handleAuthError(_ error: Error) {
+        if let errorCode = AuthErrorCode.Code(rawValue: (error as NSError).code) {
+            // todo エラーコードに応じた処理
+            switch errorCode {
+            case .invalidEmail:
+                print("入力されたメールアドレスの形式が正しくありません。")
+            case .weakPassword:
+                print("パスワードが弱すぎます。6文字以上の強固なものを設定してください。")
+            case .wrongPassword:
+                print("入力されたパスワードが間違っています。")
+            case .userNotFound:
+                print("入力されたメールアドレスのユーザーは登録されていません。")
+            case .networkError:
+                print("通信エラーが発生しました。ネットワークの状態を確認してください。")
+            default:
+                print("予期しないエラーが発生しました。再度お試しいただくか、サポートへお問い合わせください。")
+            }
+        }
+    }
+
     //ログアウト
-    func logout() throws {
+    private func logout() throws {
         do {
             //ログアウト
             try Auth.auth().signOut()
 
             // 状態リセット
-            AppLoginUserInfo.isLoading = false
             AppLoginUserInfo.isRegisterAuth = false
             AppLoginUserInfo.isMailConfirm = false
             AppLoginUserInfo.isRegisterName = false
@@ -277,6 +346,7 @@ struct loginView: View {
             AppLoginUserInfo.updateDate = ""
 
         } catch let signOutError as NSError {
+            // todo
             print("ログアウトエラー: %@", signOutError)
         }
     }

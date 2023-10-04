@@ -3,7 +3,6 @@ import SwiftUI
 //ログインユーザ情報保持クラス
 class LoginUserInfo: ObservableObject {
     //状態bool
-    @Published var isLoading: Bool = true
     @Published var isRegisterAuth: Bool = false  //Auth登録bool
     @Published var isMailConfirm: Bool = false  //メール認証完了bool
     @Published var isRegisterName: Bool = false  //名前設定済かどうか

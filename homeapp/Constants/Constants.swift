@@ -4,11 +4,11 @@
 
 import SwiftUI
 
-//コレクション名
+//Firebaseコレクション名
 struct FirestoreCollections {
     static let users = "users"
 }
-//フィールド名
+//Firebaseフィールド名
 struct FirestoreFields {
     struct Users {
         static let userEmail = "userEmail"
@@ -22,3 +22,16 @@ struct FirestoreFields {
         static let updateDate = "updateDate"
     }
 }
+
+//FirebaseStrage
+struct FirebaseStorage {
+    static let profileImageDirName = "profileImage"
+}
+
+// アプリ内画像ファイル名
+struct AppImageName {
+    static let ProfileImageNoSet_icon = "ProfileImageNoSet_icon"
+}
+
+
+
