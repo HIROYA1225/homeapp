@@ -21,21 +21,21 @@ struct loginView: View {
         NavigationStack(path: $path){
             VStack(){
                 //==================================
-                // todo あとで削除　強制ログアウトボタン
-                Button(action: {
-                    do {
-                        try logout()
-                    } catch {
-                        print("Failed to sign out")
-                    }
-                }){
-                    Text("テスト用ログアウトボタン")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(15.0)
-                }
+//                // todo あとで削除　強制ログアウトボタン
+//                Button(action: {
+//                    do {
+//                        try logout()
+//                    } catch {
+//                        print("Failed to sign out")
+//                    }
+//                }){
+//                    Text("テスト用ログアウトボタン")
+//                        .font(.headline)
+//                        .foregroundColor(.white)
+//                        .padding()
+//                        .background(Color.red)
+//                        .cornerRadius(15.0)
+//                }
                 //==================================
                 Text("褒めアプテスト")
                     .font(.largeTitle).foregroundColor(Color.black)
@@ -57,12 +57,11 @@ struct loginView: View {
                                 //ユーザ情報取得
                                 let success = try await getLoginUserInfo(uid: AppLoginUserInfo.userUid)
                                 if success {
-                                    //todoshi ユーザ情報取得成功時
-                                    path.append("toLoginCheck")
-
                                     //todo awaitさせないと画面表示早くなるかも
                                     try await getProfileImage()
 
+                                    //todoshi ユーザ情報取得成功時
+                                    path.append("toLoginCheck")
                                 } else {
                                     // todoshi エラー処理方法(ログイン情報あるが、名前未設定状態であると思われるため、名前入力画面に遷移させるか)
                                 }
@@ -95,13 +94,11 @@ struct loginView: View {
                                     let success = try await getLoginUserInfo(uid: AppLoginUserInfo.userUid)
                                     if success {
 
-//                                        path.append("toLoginCheck")
+                                        path.append("toLoginCheck")
 
                                         //todo awaitさせないと画面表示早くなるかも
                                         try await getProfileImage()
 
-                                        // todo test用遷移
-                                        path.append("toProfile")
                                     } else {
                                         // todoshi エラー処理方法(ログイン情報あるが、名前未設定状態であると思われるため、名前入力画面に遷移させるか)
 
@@ -139,12 +136,6 @@ struct loginView: View {
                     homeView()
                 case "toRegister":
                     registerView()
-
-                //todo test用=======
-                case "toProfile":
-                    ProfileView()
-                //==================
-                
                 default:
                     loginView()
                 }
@@ -253,8 +244,8 @@ struct loginView: View {
                     AppLoginUserInfo.residence = data[FirestoreFields.Users.residence] as? String ?? ""
                     AppLoginUserInfo.introduction = data[FirestoreFields.Users.introduction] as? String ?? ""
                     AppLoginUserInfo.profileImageFileName = data[FirestoreFields.Users.profileImageFileName] as? String ?? ""
-                    AppLoginUserInfo.createDate = data[FirestoreFields.Users.createDate] as? String ?? ""
-                    AppLoginUserInfo.updateDate = data[FirestoreFields.Users.updateDate] as? String ?? ""
+                    AppLoginUserInfo.createDate = data[FirestoreFields.Users.createDate] as? Timestamp ?? nil
+                    AppLoginUserInfo.updateDate = data[FirestoreFields.Users.updateDate] as? Timestamp ?? nil
 
                     continuation.resume(returning: true)
                 }else {
@@ -342,8 +333,8 @@ struct loginView: View {
             AppLoginUserInfo.residence = ""
             AppLoginUserInfo.introduction = ""
             AppLoginUserInfo.profileImageFileName = ""
-            AppLoginUserInfo.createDate = ""
-            AppLoginUserInfo.updateDate = ""
+            AppLoginUserInfo.createDate = nil
+            AppLoginUserInfo.updateDate = nil
 
         } catch let signOutError as NSError {
             // todo

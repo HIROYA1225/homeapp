@@ -46,6 +46,7 @@
 		FC0DE4DE2AC70807004D1003 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4DD2AC70807004D1003 /* FirebaseStorage */; };
 		FC0DE4E02AC70807004D1003 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4DF2AC70807004D1003 /* FirebaseStorageCombine-Community */; };
 		FC0DE4E32AC77846004D1003 /* LoginUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */; };
+		FC6B53FF2ACD83EA007F539F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B53FE2ACD83EA007F539F /* Util.swift */; };
 		FCB0E7622AC8ED51005B7F6A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FCB0E7612AC8ED51005B7F6A /* GoogleSignIn */; };
 		FCB0E7642AC8ED51005B7F6A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FCB0E7632AC8ED51005B7F6A /* GoogleSignInSwift */; };
 		FCC4A8E82ACA190100F0CFBC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC4A8E72ACA190100F0CFBC /* Constants.swift */; };
@@ -65,6 +66,7 @@
 		45FDB9CE2A8279EF0062F259 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserInfo.swift; sourceTree = "<group>"; };
+		FC6B53FE2ACD83EA007F539F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		FCC4A8E72ACA190100F0CFBC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,7 +130,7 @@
 		45FDB9C42A8279ED0062F259 /* homeapp */ = {
 			isa = PBXGroup;
 			children = (
-				FCC4A8E62ACA18E700F0CFBC /* Constants */,
+				FCC4A8E62ACA18E700F0CFBC /* Common */,
 				FC0DE4E12AC77802004D1003 /* Models */,
 				FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */,
 				45FDB9C52A8279ED0062F259 /* homeappApp.swift */,
@@ -161,12 +163,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		FCC4A8E62ACA18E700F0CFBC /* Constants */ = {
+		FCC4A8E62ACA18E700F0CFBC /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				FCC4A8E72ACA190100F0CFBC /* Constants.swift */,
+				FC6B53FE2ACD83EA007F539F /* Util.swift */,
 			);
-			path = Constants;
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +286,7 @@
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
 				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
 				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
+				FC6B53FF2ACD83EA007F539F /* Util.swift in Sources */,
 				45FDB9C62A8279ED0062F259 /* homeappApp.swift in Sources */,
 				FCC4A8E82ACA190100F0CFBC /* Constants.swift in Sources */,
 			);
@@ -342,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -397,7 +401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

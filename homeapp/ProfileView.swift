@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 struct ProfileView: View {
 
@@ -101,7 +103,23 @@ struct ProfileView: View {
 
             HStack(){
                 Button(action:{
+                    Task {
+                        do {
 
+
+                            //todo test用==
+                            email = AppLoginUserInfo.email
+                            //==
+                            
+                            //ユーザ情報変更
+                            let success = try await updateUser(email: email, userName: userName, gender: gender, age: age, residence: residence, introduction: introduction)
+                            if success {
+                                print("成功")
+                            } else {
+
+                            }
+                        }
+                    }
                 }){
                     Text("決定")
                         .font(.headline)
@@ -137,5 +155,74 @@ struct ProfileView: View {
 
         //プロフィール画像の取得
         self.profileImage = AppLoginUserInfo.profileImage
+    }
+
+    //ユーザ情報変更
+    // todo プロフィール画像の更新
+    private func updateUser(email: String, userName: String, gender: String, age: String, residence: String, introduction: String) async throws -> Bool {
+
+        return try await withCheckedThrowingContinuation { continuation in
+            
+            // 現在のemailを保持(ロールバック用)
+            let currentEmail = Auth.auth().currentUser?.email
+
+            //更新日時
+            let currentDateTime = Date()
+            let updateDateTime: Timestamp = Timestamp(date: currentDateTime)
+            
+            Auth.auth().currentUser?.updateEmail(to: email) { error in
+                if let error = error {
+                    print("ユーザ情報の変更失敗(Auth): \(error)")
+                    continuation.resume(throwing: error)
+                } else {
+                    print("ユーザ情報の変更成功(Auth)")
+                    // UIDを取得してFirestoreで他の情報を更新
+                    if let uid = Auth.auth().currentUser?.uid {
+                        let db = Firestore.firestore()
+                        db.collection("users").document(uid).updateData([
+                            "userEmail": email,
+                            "userName": userName,
+                            "gender": gender,
+                            "age": age,
+                            "residence": residence,
+                            "introduction": introduction,
+                            "profileImgFileName": "",   //todo
+                            "updateDate": updateDateTime
+                        ]) { error in
+                            if let error = error {
+                                print("ユーザ情報の変更失敗(users collection): \(error)")
+                                // Firestoreの更新が失敗した場合、emailを元に戻す(ロールバック)
+                                if let currentEmail = currentEmail {
+                                    Auth.auth().currentUser?.updateEmail(to: currentEmail) { rollbackError in
+                                        if let rollbackError = rollbackError {
+                                            print("Authロールバック失敗: \(rollbackError)")
+                                        } else {
+                                            print("Authロールバック成功")
+                                        }
+                                    }
+                                }
+                                continuation.resume(throwing: error)
+
+                            } else {
+                                //ユーザ情報更新成功時
+                                
+                                //ログイン情報を更新
+                                AppLoginUserInfo.email = email
+                                AppLoginUserInfo.userEmail = email
+                                AppLoginUserInfo.userName = userName
+                                AppLoginUserInfo.gender = gender
+                                AppLoginUserInfo.age = age
+                                AppLoginUserInfo.residence = residence
+                                AppLoginUserInfo.introduction = introduction
+                                AppLoginUserInfo.profileImageFileName = ""   //todo
+                                AppLoginUserInfo.updateDate = updateDateTime
+                                
+                                continuation.resume(returning: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
