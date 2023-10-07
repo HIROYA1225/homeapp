@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var name = ""
+    @State private var userName = ""
     @State private var gender = ""
     @State private var age = ""
-    @State private var location = ""
-    @State private var about = ""
+    @State private var residence = ""
+    @State private var introduction = ""
     let prefectures = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
                        "山形県", "福島県", "茨城県", "栃木県", "群馬県",
                        "埼玉県", "千葉県", "東京都", "神奈川県","新潟県",
@@ -23,11 +23,22 @@ struct ProfileView: View {
                        "徳島県", "香川県", "愛媛県", "高知県", "福岡県",
                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県",
                        "鹿児島県", "沖縄県"]
+    let genders = ["男性", "女性", "その他"]
+    private let Rec_width:CGFloat = 120
+    private let Item_width:CGFloat = 92
     
+    //画面触ったらキーボード閉じる処理の準備
+    enum Field: Hashable {
+        case userName
+        case age
+        case introduction
+    }
+    @FocusState private var focusedField: Field?
+
     var body: some View {
         VStack(spacing:30){
 
-            HStack(){
+            HStack{
                 Button(action:{}){
                     Image(systemName: "person.crop.circle")
                         .resizable()
@@ -37,57 +48,83 @@ struct ProfileView: View {
                 }
             }
 
-            VStack{
-                TextField("Name", text:self.$name)
-                    .keyboardType(.default)
-                    .cornerRadius(20.0)
-                    .frame(width: 220, height: 15)
-                Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
-            }
-            
-            
-            VStack{
-                HStack{
-                    Text("Gender")
-                        .frame(width: 155, height: 15)
-                    Picker(selection:self.$gender, label: Text("Gender")){
-                        Text("男性").tag(0)
-                        Text("女性").tag(1)
-                        Text("その他").tag(2)
-                    }
-                    .frame(width: 155, height: 15)
+            HStack{
+                    Text("Name")
+                        .frame(width: Item_width, height: 15, alignment:.leading)
+                VStack{
+                    TextField("", text:self.$userName)
+                        .keyboardType(.default)
+                        .frame(width: Rec_width, height: 15)
+                        //画面触ったらキーボード閉じる処理
+                        .focused($focusedField, equals: .userName)
+                        .onTapGesture {
+                           focusedField = .userName
+                        }
+                    Rectangle()
+                        .frame(width: Rec_width,height: 1.5)
+                        .foregroundColor(.black)
                 }
-                Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
             
-            VStack{
-                TextField("Age", text:self.$age)
-                    .keyboardType(.numberPad)
-                    .frame(width: 220, height: 15)
-                Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
+            HStack{
+                Text("Gender")
+                    .frame(width: Item_width, height: 15, alignment:.leading)
+                VStack{
+                    Picker("", selection: self.$gender) {
+                        ForEach(genders, id: \.self) { item in
+                            Text(item)
+                        }
+                    }
+                    .frame(width: Rec_width, height: 15, alignment:.leading)
+                    Rectangle()
+                        .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
+                }
             }
             
-            VStack {
-                HStack{
-                    Text("Location")
-                        .frame(width: 145, height: 15)
-                    Picker("", selection: self.$location) {
+            HStack{
+                Text("Age")
+                    .frame(width: Item_width, height: 15, alignment:.leading)
+                VStack{
+                    TextField("", text:self.$age)
+                        .keyboardType(.numberPad)
+                        .frame(width: Rec_width, height: 15)
+                        //画面触ったらキーボード閉じる処理
+                        .focused($focusedField, equals: .age)
+                        .onTapGesture {
+                           focusedField = .age
+                        }
+                    Rectangle()
+                        .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
+                }
+            }
+            
+            HStack{
+                Text("Location")
+                    .frame(width: Item_width, height: 15, alignment:.leading)
+                VStack{
+                    Picker("", selection: self.$residence) {
                         ForEach(prefectures, id: \.self) { item in
                             Text(item)
                         }
                     }
-                    .frame(width: 145, height: 15)
+                    .frame(width: Rec_width, height: 15, alignment:.leading)
+                    Rectangle()
+                        .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
                 }
-                Rectangle().frame(width: 220,height: 1.5).foregroundColor(.black)
             }
             
             VStack{
                 Text("About")
                     .frame(width: 220, height: 15, alignment:.leading)
-                TextEditor(text:self.$about)
+                TextEditor(text:self.$introduction)
                     .keyboardType(.default)
                     .frame(width: 220,height: 150,alignment: .topLeading)
                     .border(Color.black,width: 1)
+                    //画面触ったらキーボード閉じる処理
+                    .focused($focusedField, equals: .introduction)
+                    .onTapGesture {
+                       focusedField = .introduction
+                    }
             }
             
             HStack(){
@@ -98,13 +135,19 @@ struct ProfileView: View {
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(20.0)
-                       // .frame(width: 220,height: 10)
-
                 }
-               // .frame(width: 220,height: 10)
-
-            
             }
         }
+        //画面触ったらキーボード閉じる処理
+        .onTapGesture {
+            focusedField = nil
+        }
+    }
+}
+
+//プレビュー表示
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
     }
 }
