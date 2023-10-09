@@ -21,21 +21,22 @@ struct loginView: View {
         NavigationStack(path: $path){
             VStack(){
                 //==================================
-//                // todo あとで削除　強制ログアウトボタン
-//                Button(action: {
-//                    do {
-//                        try logout()
-//                    } catch {
-//                        print("Failed to sign out")
-//                    }
-//                }){
-//                    Text("テスト用ログアウトボタン")
-//                        .font(.headline)
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .background(Color.red)
-//                        .cornerRadius(15.0)
-//                }
+//                                // todo あとで削除　強制ログアウトボタン
+//                                Button(action: {
+//                                    do {
+//                                        try logout()
+//                                        print("ログアウトしました")
+//                                    } catch {
+//                                        print("Failed to sign out")
+//                                    }
+//                                }){
+//                                    Text("テスト用ログアウトボタン")
+//                                        .font(.headline)
+//                                        .foregroundColor(.white)
+//                                        .padding()
+//                                        .background(Color.red)
+//                                        .cornerRadius(15.0)
+//                                }
                 //==================================
                 Text("褒めアプテスト")
                     .font(.largeTitle).foregroundColor(Color.black)
@@ -51,19 +52,20 @@ struct loginView: View {
                     Button(action:{
                         Task {
                             do {
-                                //Google認証
+                                //Google認証(メールアドレス確認不要)
                                 try await googleAuth()
-
-                                //ユーザ情報取得
-                                let success = try await getLoginUserInfo(uid: AppLoginUserInfo.userUid)
-                                if success {
-                                    //todo awaitさせないと画面表示早くなるかも
-                                    try await getProfileImage()
-
-                                    //todoshi ユーザ情報取得成功時
-                                    path.append("toLoginCheck")
+                                // ユーザ名登録チェック
+                                if try await checkDocumentExists() {
+                                    //ユーザ情報取得
+                                    if try await getLoginUserInfo() {
+                                        // トップ画面へ遷移
+                                        path.append("toLoginCheck")
+                                        //todo awaitさせないと画面表示早くなるかも
+                                        try await getProfileImage()
+                                    }
                                 } else {
-                                    // todoshi エラー処理方法(ログイン情報あるが、名前未設定状態であると思われるため、名前入力画面に遷移させるか)
+                                    //ユーザ名登録画面へ遷移
+                                    path.append("toRegisterNameOnly")
                                 }
                             } catch {
                                 // 認証に失敗した場合のエラー処理
@@ -88,21 +90,29 @@ struct loginView: View {
                     Button(action:{
                         Task {
                             do {
-                                //ログイン処理
-                                let successLogin = try await emailLogin(email: email, password: password)
-                                if successLogin {
-                                    let success = try await getLoginUserInfo(uid: AppLoginUserInfo.userUid)
-                                    if success {
-
-                                        path.append("toLoginCheck")
-
-                                        //todo awaitさせないと画面表示早くなるかも
-                                        try await getProfileImage()
-
-                                    } else {
-                                        // todoshi エラー処理方法(ログイン情報あるが、名前未設定状態であると思われるため、名前入力画面に遷移させるか)
-
+                                // ログイン処理
+                                if try await emailLogin(email: email, password: password) {
+                                    // メールアドレス確認チェック
+                                    if AppLoginUserInfo.isMailConfirm {
+                                        // ユーザ名登録チェック
+                                        if try await checkDocumentExists() {
+                                            // ユーザ情報を取得
+                                            if try await getLoginUserInfo() {
+                                                // トップ画面へ遷移
+//                                                path.append("toLoginCheck")
+                                                path.append("toProfile")
+                                                //todo awaitさせないと画面表示早くなるかも
+                                                try await getProfileImage()
+                                            }
+                                        } else {
+                                            //ユーザ名登録画面へ遷移
+                                            path.append("toRegisterNameOnly")
+                                        }
+                                    }else {
+                                        // todo メールアドレスを確認してください。アラートの表示
+                                        print("メールアドレスを確認してください")
                                     }
+
                                 }
                             } catch {
                                 // エラー処理
@@ -136,6 +146,10 @@ struct loginView: View {
                     homeView()
                 case "toRegister":
                     registerView()
+                case "toRegisterNameOnly":
+                    RegisterNameOnlyView()
+                case "toProfile":
+                    ProfileView()
                 default:
                     loginView()
                 }
@@ -152,12 +166,12 @@ struct loginView: View {
             Auth.auth().signIn(withEmail: email, password: password)
 
             if let user = Auth.auth().currentUser {
-                let uid = user.uid
-                AppLoginUserInfo.userUid = uid
+                AppLoginUserInfo.userUid = user.uid
                 AppLoginUserInfo.email = email
 
                 //ログインフラグ
                 AppLoginUserInfo.isLoggedIn = true
+                AppLoginUserInfo.isMailConfirm = user.isEmailVerified
 
                 continuation.resume(returning: true)
             } else {
@@ -206,9 +220,10 @@ struct loginView: View {
 
                 //成功時
                 if let email = user.email {
-                    AppLoginUserInfo.userUid = authResult!.user.uid
+                    AppLoginUserInfo.userUid = user.uid
                     AppLoginUserInfo.email = email
                     AppLoginUserInfo.isLoggedIn = true
+                    AppLoginUserInfo.isMailConfirm = user.isEmailVerified
                     continuation.resume(returning: ())
                 } else {
                     continuation.resume(throwing: AuthError.customError("エラー発生"))
@@ -228,16 +243,23 @@ struct loginView: View {
         case customError(String)
     }
 
+    // ドキュメントIDが存在するかチェック
+    private func checkDocumentExists() async throws -> Bool {
+        let db = Firestore.firestore()
+        let docRef = db.collection(FirestoreCollections.users).document(AppLoginUserInfo.userUid)
+
+        let docSnapshot = try await docRef.getDocument()
+        return docSnapshot.exists
+    }
 
     //ユーザ情報取得
-    private func getLoginUserInfo(uid: String) async throws -> Bool  {
+    private func getLoginUserInfo() async throws -> Bool  {
         let db = Firestore.firestore()
-        let docRef = db.collection(FirestoreCollections.users).document(uid)
+        let docRef = db.collection(FirestoreCollections.users).document(AppLoginUserInfo.userUid)
 
         return try await withCheckedThrowingContinuation { continuation in
             docRef.getDocument { (document, error) in
                 if let document = document, document.exists, let data = document.data() {
-                    AppLoginUserInfo.userEmail = data[FirestoreFields.Users.userEmail] as? String ?? ""
                     AppLoginUserInfo.userName = data[FirestoreFields.Users.userName] as? String ?? ""
                     AppLoginUserInfo.gender = data[FirestoreFields.Users.gender] as? String ?? ""
                     AppLoginUserInfo.age = data[FirestoreFields.Users.age] as? String ?? ""
@@ -249,7 +271,7 @@ struct loginView: View {
 
                     continuation.resume(returning: true)
                 }else {
-                    print("ドキュメントが存在しないか、ドキュメントの取得中にエラーが発生しました: \(error?.localizedDescription ?? "エラーの詳細なし")")
+                    print("ドキュメントの取得中にエラーが発生しました: \(error?.localizedDescription ?? "エラーの詳細なし")")
                     continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: nil))
                 }
             }
@@ -326,7 +348,6 @@ struct loginView: View {
             AppLoginUserInfo.userUid = ""
             AppLoginUserInfo.email = ""
 
-            AppLoginUserInfo.userEmail = ""
             AppLoginUserInfo.userName = ""
             AppLoginUserInfo.gender = ""
             AppLoginUserInfo.age = ""
@@ -352,3 +373,64 @@ struct loginView_Previews: PreviewProvider {
 
 
 
+// todo ユーザ名登録画面(仮)
+struct RegisterNameOnlyView: View {
+    @State private var userName: String = ""
+
+    //ログイン情報
+    @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
+
+    var body: some View {
+        VStack {
+            TextField("ユーザー名", text: $userName)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            Button("登録") {
+                Task {
+                    do {
+                        //ユーザ名登録重複チェック
+
+                        // ユーザ名登録処理
+                        let result = try await registerNameOnly()
+                        if result {
+                            // トップ画面に遷移
+                            //path.append("toLoginCheck")
+                        } else {
+                            //ユーザ名登録エラー発生
+
+                        }
+
+                    } catch {
+                        print("エラー: \(error)")
+                    }
+                }
+            }
+        }
+        .padding()
+    }
+
+    // ユーザ情報登録(ユーザ名only)
+    private func registerNameOnly()  async throws -> Bool  {
+        let db = Firestore.firestore()
+        let newDocRef = db.collection(FirestoreCollections.users).document(AppLoginUserInfo.userUid)
+
+        let currentDate = Timestamp(date: Date())
+
+        return try await withCheckedThrowingContinuation { continuation in
+            newDocRef.setData([
+                "userName": userName,
+                "createDate": currentDate,
+                "updateDate": currentDate
+            ]) { error in
+                if let error = error {
+                    print("エラー: \(error)")
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: true)
+                }
+            }
+        }
+    }
+
+}

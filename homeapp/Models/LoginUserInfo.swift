@@ -14,7 +14,6 @@ class LoginUserInfo: ObservableObject {
     @Published var email = ""
 
     //ユーザ情報usersコレクション
-    @Published var userEmail = ""
     @Published var userName = ""
     @Published var gender = ""
     @Published var age = ""

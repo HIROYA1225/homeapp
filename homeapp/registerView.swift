@@ -33,11 +33,12 @@ struct registerView: View {
                     .background(Color.green)
                     .cornerRadius(15.0)
             }
-            //登録成功時、Email成功時 todoshi
-            //名前入力画面やメール認証してください画面へ遷移させる必要があると思う。
-            if isUserRegistered {
-                if isSendMail {
 
+            //登録成功時
+            if isUserRegistered {
+                //確認メール送信成功時
+                if isSendMail {
+                    //todo メールアドレス確認依頼画面へ遷移
                 }
             }
         }

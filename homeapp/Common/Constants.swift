@@ -11,7 +11,6 @@ struct FirestoreCollections {
 //Firebaseフィールド名
 struct FirestoreFields {
     struct Users {
-        static let userEmail = "userEmail"
         static let userName = "userName"
         static let gender = "gender"
         static let age = "age"

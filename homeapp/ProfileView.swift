@@ -180,7 +180,6 @@ struct ProfileView: View {
                     if let uid = Auth.auth().currentUser?.uid {
                         let db = Firestore.firestore()
                         db.collection("users").document(uid).updateData([
-                            "userEmail": email,
                             "userName": userName,
                             "gender": gender,
                             "age": age,
@@ -208,7 +207,6 @@ struct ProfileView: View {
                                 
                                 //ログイン情報を更新
                                 AppLoginUserInfo.email = email
-                                AppLoginUserInfo.userEmail = email
                                 AppLoginUserInfo.userName = userName
                                 AppLoginUserInfo.gender = gender
                                 AppLoginUserInfo.age = age
