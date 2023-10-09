@@ -17,14 +17,18 @@ struct tabView: View {
                     Image(systemName: "house.fill")
                 }
                 .tag(0)
-            //プロフィール画面
-//            profileView()
-//                .tabItem {
-//                    Image(systemName: "speaker.wave.3.fill")
-//                }
-//                .tag(1)
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "speaker.wave.3.fill")
+                }
+                .tag(1)
             
         }
     }
 }
 
+struct tabView_Previews: PreviewProvider {
+    static var previews: some View {
+        tabView()
+    }
+}
