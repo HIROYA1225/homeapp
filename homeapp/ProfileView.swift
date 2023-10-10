@@ -105,12 +105,10 @@ struct ProfileView: View {
                 Button(action:{
                     Task {
                         do {
-
-
                             //todo test用==
                             email = AppLoginUserInfo.email
                             //==
-                            
+
                             //ユーザ情報変更
                             let success = try await updateUser(email: email, userName: userName, gender: gender, age: age, residence: residence, introduction: introduction)
                             if success {
@@ -131,8 +129,6 @@ struct ProfileView: View {
 
                 }
                 // .frame(width: 220,height: 10)
-
-
             }
         }
         .onAppear() {
@@ -162,14 +158,14 @@ struct ProfileView: View {
     private func updateUser(email: String, userName: String, gender: String, age: String, residence: String, introduction: String) async throws -> Bool {
 
         return try await withCheckedThrowingContinuation { continuation in
-            
+
             // 現在のemailを保持(ロールバック用)
             let currentEmail = Auth.auth().currentUser?.email
 
             //更新日時
             let currentDateTime = Date()
             let updateDateTime: Timestamp = Timestamp(date: currentDateTime)
-            
+
             Auth.auth().currentUser?.updateEmail(to: email) { error in
                 if let error = error {
                     print("ユーザ情報の変更失敗(Auth): \(error)")
@@ -204,7 +200,7 @@ struct ProfileView: View {
 
                             } else {
                                 //ユーザ情報更新成功時
-                                
+
                                 //ログイン情報を更新
                                 AppLoginUserInfo.email = email
                                 AppLoginUserInfo.userName = userName
@@ -214,13 +210,15 @@ struct ProfileView: View {
                                 AppLoginUserInfo.introduction = introduction
                                 AppLoginUserInfo.profileImageFileName = ""   //todo
                                 AppLoginUserInfo.updateDate = updateDateTime
-                                
+
                                 continuation.resume(returning: true)
                             }
                         }
                     }
                 }
+
             }
         }
     }
 }
+

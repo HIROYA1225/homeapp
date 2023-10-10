@@ -148,8 +148,10 @@ struct loginView: View {
                     registerView()
                 case "toRegisterNameOnly":
                     RegisterNameOnlyView()
+                //todo test用=======
                 case "toProfile":
                     ProfileView()
+                //==================
                 default:
                     loginView()
                 }
