@@ -6,13 +6,25 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
 struct ProfileView: View {
+    @State private var email = ""
+
     @State private var userName = ""
     @State private var gender = ""
     @State private var age = ""
     @State private var residence = ""
     @State private var introduction = ""
+
+    @State private var profileImageFileName = ""
+
+    @State private var profileImage: Image?
+
+    //ログイン情報
+    @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
+
     let prefectures = ["北海道", "青森県", "岩手県", "宮城県", "秋田県",
                        "山形県", "福島県", "茨城県", "栃木県", "群馬県",
                        "埼玉県", "千葉県", "東京都", "神奈川県","新潟県",
@@ -112,7 +124,7 @@ struct ProfileView: View {
                         .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
                 }
             }
-            
+
             VStack{
                 Text("About")
                     .frame(width: 220, height: 15, alignment:.leading)
@@ -126,16 +138,123 @@ struct ProfileView: View {
                        focusedField = .introduction
                     }
             }
-            
+
             HStack(){
-                Button(action:{}){
+                Button(action:{
+                    Task {
+                        do {
+                            //todo test用==
+                            email = AppLoginUserInfo.email
+                            //==
+
+                            //ユーザ情報変更
+                            let success = try await updateUser(email: email, userName: userName, gender: gender, age: age, residence: residence, introduction: introduction)
+                            if success {
+                                print("成功")
+                            } else {
+
+                            }
+                        }
+                    }
+                }){
                     Text("決定")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(20.0)
+                    // .frame(width: 220,height: 10)
+
                 }
+                // .frame(width: 220,height: 10)
+            }
+        }
+        .onAppear() {
+            //ログインユーザ情報取得
+            getLoginUserInfo()
+        }
+    }
+
+    //ログインユーザ情報取得
+    private func getLoginUserInfo() {
+
+        //ユーザコレクション情報の取得
+        self.email = AppLoginUserInfo.email
+        self.userName = AppLoginUserInfo.userName
+        self.gender = AppLoginUserInfo.gender
+        self.age = AppLoginUserInfo.age
+        self.residence = AppLoginUserInfo.residence
+        self.introduction = AppLoginUserInfo.introduction
+        self.profileImageFileName = AppLoginUserInfo.profileImageFileName
+
+        //プロフィール画像の取得
+        self.profileImage = AppLoginUserInfo.profileImage
+    }
+
+    //ユーザ情報変更
+    // todo プロフィール画像の更新
+    private func updateUser(email: String, userName: String, gender: String, age: String, residence: String, introduction: String) async throws -> Bool {
+
+        return try await withCheckedThrowingContinuation { continuation in
+
+            // 現在のemailを保持(ロールバック用)
+            let currentEmail = Auth.auth().currentUser?.email
+
+            //更新日時
+            let currentDateTime = Date()
+            let updateDateTime: Timestamp = Timestamp(date: currentDateTime)
+
+            Auth.auth().currentUser?.updateEmail(to: email) { error in
+                if let error = error {
+                    print("ユーザ情報の変更失敗(Auth): \(error)")
+                    continuation.resume(throwing: error)
+                } else {
+                    print("ユーザ情報の変更成功(Auth)")
+                    // UIDを取得してFirestoreで他の情報を更新
+                    if let uid = Auth.auth().currentUser?.uid {
+                        let db = Firestore.firestore()
+                        db.collection("users").document(uid).updateData([
+                            "userName": userName,
+                            "gender": gender,
+                            "age": age,
+                            "residence": residence,
+                            "introduction": introduction,
+                            "profileImgFileName": "",   //todo
+                            "updateDate": updateDateTime
+                        ]) { error in
+                            if let error = error {
+                                print("ユーザ情報の変更失敗(users collection): \(error)")
+                                // Firestoreの更新が失敗した場合、emailを元に戻す(ロールバック)
+                                if let currentEmail = currentEmail {
+                                    Auth.auth().currentUser?.updateEmail(to: currentEmail) { rollbackError in
+                                        if let rollbackError = rollbackError {
+                                            print("Authロールバック失敗: \(rollbackError)")
+                                        } else {
+                                            print("Authロールバック成功")
+                                        }
+                                    }
+                                }
+                                continuation.resume(throwing: error)
+
+                            } else {
+                                //ユーザ情報更新成功時
+
+                                //ログイン情報を更新
+                                AppLoginUserInfo.email = email
+                                AppLoginUserInfo.userName = userName
+                                AppLoginUserInfo.gender = gender
+                                AppLoginUserInfo.age = age
+                                AppLoginUserInfo.residence = residence
+                                AppLoginUserInfo.introduction = introduction
+                                AppLoginUserInfo.profileImageFileName = ""   //todo
+                                AppLoginUserInfo.updateDate = updateDateTime
+
+                                continuation.resume(returning: true)
+                            }
+                        }
+                    }
+                }
+
             }
         }
         //画面触ったらキーボード閉じる処理
@@ -151,3 +270,4 @@ struct ProfileView_Previews: PreviewProvider {
         ProfileView()
     }
 }
+

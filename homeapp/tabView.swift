@@ -17,13 +17,14 @@ struct tabView: View {
                     Image(systemName: "house.fill")
                 }
                 .tag(0)
-//            playView()
-//                .tabItem {
-//                    Image(systemName: "speaker.wave.3.fill")
-//                }
-//                .tag(1)
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "speaker.wave.3.fill")
+                }
+                .tag(1)
             
         }
     }
 }
+
 
