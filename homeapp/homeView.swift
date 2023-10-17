@@ -9,23 +9,31 @@ import SwiftUI
 import Liquid
 
 struct homeView: View {
+    @State private var isPlay = false
     var body: some View {
-        ZStack {
-            Liquid()
-                .frame(width: 240, height: 240)
-                .foregroundColor(.blue)
-                .opacity(0.3)
-
-            Liquid()
-                .frame(width: 220, height: 220)
-                .foregroundColor(.blue)
-                .opacity(0.5)
-
-            Liquid()
-                .frame(width: 200, height: 200)
-                .foregroundColor(.blue)
-                .opacity(0.6)
-            
+        VStack {
+            ZStack{
+                Liquid()
+                    .frame(width: 240, height: 240)
+                    .foregroundColor(isPlay ? .pink : .blue)
+                    .opacity(0.3)
+                
+                Liquid()
+                    .frame(width: 220, height: 220)
+                    .foregroundColor(isPlay ? .pink : .blue)
+                    .opacity(0.5)
+                
+                Liquid()
+                    .frame(width: 200, height: 200)
+                    .foregroundColor(isPlay ? .pink : .blue)
+                    .opacity(0.6)
+            }
+            .padding(.bottom,100)
+            Button(action:{
+                self.isPlay = !isPlay
+            }){
+                Image(systemName: "speaker.wave.3.fill")
+            }
         }
     }
 }
