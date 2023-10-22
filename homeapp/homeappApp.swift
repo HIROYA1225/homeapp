@@ -19,7 +19,6 @@ struct homeappApp: App {
 
     var body: some Scene {
         WindowGroup {
-            reportView()
             // ログイン画面
             loginView()
                 .environmentObject(AppLoginUserInfo)

@@ -173,6 +173,10 @@ struct ProfileView: View {
             //ログインユーザ情報取得
             getLoginUserInfo()
         }
+        //画面触ったらキーボード閉じる処理
+        .onTapGesture {
+            focusedField = nil
+        }
     }
 
     //ログインユーザ情報取得
@@ -257,10 +261,7 @@ struct ProfileView: View {
 
             }
         }
-        //画面触ったらキーボード閉じる処理
-        .onTapGesture {
-            focusedField = nil
-        }
+
     }
 }
 

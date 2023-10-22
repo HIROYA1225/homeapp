@@ -15,28 +15,29 @@ struct loginView: View {
     @State private var email = ""
     @State private var password = ""
     @State var path = NavigationPath()
+    @State private var returnErrorMessage = ""
     //ログイン情報
     @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
     var body: some View {
         NavigationStack(path: $path){
             VStack(){
                 //==================================
-//                                // todo あとで削除　強制ログアウトボタン
-//                                Button(action: {
-//                                    do {
-//                                        try logout()
-//                                        print("ログアウトしました")
-//                                    } catch {
-//                                        print("Failed to sign out")
-//                                    }
-//                                }){
-//                                    Text("テスト用ログアウトボタン")
-//                                        .font(.headline)
-//                                        .foregroundColor(.white)
-//                                        .padding()
-//                                        .background(Color.red)
-//                                        .cornerRadius(15.0)
-//                                }
+//                // todo あとで削除　強制ログアウトボタン
+//                Button(action: {
+//                    do {
+//                        try logout()
+//                        print("ログアウトしました")
+//                    } catch {
+//                        print("Failed to sign out")
+//                    }
+//                }){
+//                    Text("テスト用ログアウトボタン")
+//                        .font(.headline)
+//                        .foregroundColor(.white)
+//                        .padding()
+//                        .background(Color.red)
+//                        .cornerRadius(15.0)
+//                }
                 //==================================
                 Text("褒めアプテスト")
                     .font(.largeTitle).foregroundColor(Color.black)
@@ -54,8 +55,10 @@ struct loginView: View {
                             do {
                                 //Google認証(メールアドレス確認不要)
                                 try await googleAuth()
+
                                 // ユーザ名登録チェック
                                 if try await checkDocumentExists() {
+
                                     //ユーザ情報取得
                                     if try await getLoginUserInfo() {
                                         // トップ画面へ遷移
@@ -69,7 +72,9 @@ struct loginView: View {
                                 }
                             } catch {
                                 // 認証に失敗した場合のエラー処理
-                                handleAuthError(error)
+                                self.returnErrorMessage = handleFirebaseAuthLoginError(error)
+                                //todo アラート アラートエラーメッセージ表示お願い(returnErrorMessageを表示させて)
+
                             }
 
                         }
@@ -90,6 +95,11 @@ struct loginView: View {
                     Button(action:{
                         Task {
                             do {
+                                if email.isEmpty || password.isEmpty {
+                                    // todo アラート表示お願い("メールアドレスとパスワードを入力してください"のような)
+
+                                    return
+                                }
                                 // ログイン処理
                                 if try await emailLogin(email: email, password: password) {
                                     // メールアドレス確認チェック
@@ -98,8 +108,9 @@ struct loginView: View {
                                         if try await checkDocumentExists() {
                                             // ユーザ情報を取得
                                             if try await getLoginUserInfo() {
+
                                                 // トップ画面へ遷移
-//                                                path.append("toLoginCheck")
+                                                // path.append("toLoginCheck")
                                                 path.append("toProfile")
                                                 //todo awaitさせないと画面表示早くなるかも
                                                 try await getProfileImage()
@@ -109,14 +120,18 @@ struct loginView: View {
                                             path.append("toRegisterNameOnly")
                                         }
                                     }else {
+                                        // メール未認証時はログアウトさせる
+                                        try logout()
                                         // todo メールアドレスを確認してください。アラートの表示
                                         print("メールアドレスを確認してください")
                                     }
-
                                 }
                             } catch {
-                                // エラー処理
-                                handleAuthError(error)
+                                // 認証に失敗した場合のエラー処理
+                                self.returnErrorMessage = handleFirebaseAuthLoginError(error)
+                                //todo アラート アラートエラーメッセージ表示お願い(returnErrorMessageを表示させて)
+
+
                             }
                         }
                     }){
@@ -148,10 +163,10 @@ struct loginView: View {
                     registerView()
                 case "toRegisterNameOnly":
                     RegisterNameOnlyView()
-                //todo test用=======
+                    //todo test用=======
                 case "toProfile":
                     ProfileView()
-                //==================
+                    //==================
                 default:
                     loginView()
                 }
@@ -165,19 +180,19 @@ struct loginView: View {
 
         return try await withCheckedThrowingContinuation { continuation in
 
-            Auth.auth().signIn(withEmail: email, password: password)
+            Auth.auth().signIn(withEmail: email, password: password){ (authResult, error) in
 
-            if let user = Auth.auth().currentUser {
-                AppLoginUserInfo.userUid = user.uid
-                AppLoginUserInfo.email = email
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
 
-                //ログインフラグ
-                AppLoginUserInfo.isLoggedIn = true
-                AppLoginUserInfo.isMailConfirm = user.isEmailVerified
-
-                continuation.resume(returning: true)
-            } else {
-                continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: nil))
+                if let user = Auth.auth().currentUser {
+                    loginSuccessUpdateUserInfo(user:user)
+                    continuation.resume(returning: true)
+                } else {
+                    continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: nil))
+                }
             }
         }
     }
@@ -211,38 +226,36 @@ struct loginView: View {
 
         return try await withCheckedThrowingContinuation { continuation in
             Auth.auth().signIn(with: credential) { authResult, error in
+
+                //ログインエラー時
                 if let error = error {
                     continuation.resume(throwing: error)
                     return
                 }
                 guard let user = authResult?.user else {
-                    continuation.resume(throwing: AuthError.customError("User not found"))
+                    continuation.resume(throwing: AuthError.customError("ユーザが見つかりません"))
                     return
                 }
 
                 //成功時
-                if let email = user.email {
-                    AppLoginUserInfo.userUid = user.uid
-                    AppLoginUserInfo.email = email
-                    AppLoginUserInfo.isLoggedIn = true
-                    AppLoginUserInfo.isMailConfirm = user.isEmailVerified
+                if user.email != nil {
+                    loginSuccessUpdateUserInfo(user:user)
                     continuation.resume(returning: ())
                 } else {
-                    continuation.resume(throwing: AuthError.customError("エラー発生"))
+                    continuation.resume(throwing: AuthError.customError("メールアドレスが見つかりません"))
                     return
                 }
             }
         }
     }
 
-    //Google認証用
-    private enum AuthError: Error {
-        case clientIDNotFound
-        case invalidUserOrToken
-        case customError(String)
-    }
-    private enum SignInError: Error {
-        case customError(String)
+
+    //ログイン成功時、LoginUserInfoを更新
+    private func loginSuccessUpdateUserInfo(user: User) {
+        AppLoginUserInfo.userUid = user.uid
+        AppLoginUserInfo.email = user.email!
+        AppLoginUserInfo.isLoggedIn = true
+        AppLoginUserInfo.isMailConfirm = user.isEmailVerified
     }
 
     // ドキュメントIDが存在するかチェック
@@ -273,7 +286,6 @@ struct loginView: View {
 
                     continuation.resume(returning: true)
                 }else {
-                    print("ドキュメントの取得中にエラーが発生しました: \(error?.localizedDescription ?? "エラーの詳細なし")")
                     continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: nil))
                 }
             }
@@ -312,29 +324,6 @@ struct loginView: View {
             }
         }
     }
-
-
-    //ログインエラー
-    private func handleAuthError(_ error: Error) {
-        if let errorCode = AuthErrorCode.Code(rawValue: (error as NSError).code) {
-            // todo エラーコードに応じた処理
-            switch errorCode {
-            case .invalidEmail:
-                print("入力されたメールアドレスの形式が正しくありません。")
-            case .weakPassword:
-                print("パスワードが弱すぎます。6文字以上の強固なものを設定してください。")
-            case .wrongPassword:
-                print("入力されたパスワードが間違っています。")
-            case .userNotFound:
-                print("入力されたメールアドレスのユーザーは登録されていません。")
-            case .networkError:
-                print("通信エラーが発生しました。ネットワークの状態を確認してください。")
-            default:
-                print("予期しないエラーが発生しました。再度お試しいただくか、サポートへお問い合わせください。")
-            }
-        }
-    }
-
     //ログアウト
     private func logout() throws {
         do {
@@ -360,11 +349,35 @@ struct loginView: View {
             AppLoginUserInfo.updateDate = nil
 
         } catch let signOutError as NSError {
-            // todo
             print("ログアウトエラー: %@", signOutError)
         }
     }
 
+    private enum AuthError: Error {
+        case clientIDNotFound
+        case invalidUserOrToken
+        case customError(String)
+    }
+    private enum SignInError: Error {
+        case customError(String)
+    }
+    //FirebaserAUthエラー
+    private func handleFirebaseAuthLoginError(_ error: Error) -> String {
+        var returnMessage = ""
+        if let errorCode = AuthErrorCode.Code(rawValue: (error as NSError).code) {
+            switch errorCode {
+            case .wrongPassword:
+                returnMessage = "入力されたパスワードが間違っています。"
+            case .userNotFound:
+                returnMessage = "入力されたメールアドレスのユーザーは登録されていません。"
+            case .networkError:
+                returnMessage = "通信エラーが発生しました。ネットワークの状態を確認してください。"
+            default:
+                returnMessage = "ログイン時にエラーが発生しました。アプリを閉じて再度お試しください。"
+            }
+        }
+        return returnMessage
+    }
 }
 
 struct loginView_Previews: PreviewProvider {
