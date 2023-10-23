@@ -257,10 +257,10 @@ struct ProfileView: View {
 
             }
         }
-        //画面触ったらキーボード閉じる処理
-        .onTapGesture {
-            focusedField = nil
-        }
+//        //画面触ったらキーボード閉じる処理
+//        .onTapGesture {
+//            focusedField = nil
+//        }
     }
 }
 
