@@ -426,26 +426,50 @@ struct RegisterNameOnlyView: View {
     }
 
     // ユーザ情報登録(ユーザ名only)
-    private func registerNameOnly()  async throws -> Bool  {
-        let db = Firestore.firestore()
-        let newDocRef = db.collection(FirestoreCollections.users).document(AppLoginUserInfo.userUid)
+    private func registerNameOnly() async throws -> Bool {
 
+        // Firebase設定
+        let db = Firestore.firestore()
+        // ドキュメントIDはユーザuid
+        let usersDocRef = db.collection(FirestoreCollections.users).document(AppLoginUserInfo.userUid)
+        // ドキュメントIDは入力されたユーザ名
+        let checkUserUniqueDocRef = db.collection(FirestoreCollections.checkUserUnique).document(userName)
+
+        // 登録日付
         let currentDate = Timestamp(date: Date())
 
+        //ユーザ情報の登録用
+        let userData: [String: Any] = [
+            FirestoreFields.Users.userName: userName,
+            FirestoreFields.Users.createDate: currentDate,
+            FirestoreFields.Users.updateDate: currentDate
+        ]
+
+        // ユーザ名重複チェック用(フィールド名はなんでもいい)
+        let checkUniqueUserData: [String: Any] = [
+            FirestoreFields.CheckUniqueUser.dummy: "",
+        ]
+
         return try await withCheckedThrowingContinuation { continuation in
-            newDocRef.setData([
-                "userName": userName,
-                "createDate": currentDate,
-                "updateDate": currentDate
-            ]) { error in
+            // トランザクション処理
+            db.runTransaction({ (transaction, errorPointer) -> Any? in
+                // ユニークチェックコレクションにデータをセット(すでに登録があればエラー返す)
+                transaction.setData(checkUniqueUserData, forDocument: checkUserUniqueDocRef)
+                // ユーザコレクションへデータをセット
+                transaction.setData(userData, forDocument: usersDocRef)
+                return true
+
+            }) { (object, error) in
                 if let error = error {
-                    print("エラー: \(error)")
+                    // 失敗時
                     continuation.resume(throwing: error)
                 } else {
+                    // 成功時
                     continuation.resume(returning: true)
                 }
             }
         }
+
     }
 
 }
