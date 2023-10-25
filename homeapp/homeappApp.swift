@@ -19,10 +19,10 @@ struct homeappApp: App {
 
     var body: some Scene {
         WindowGroup {
-            reportView()
+            ProfileView()
             // ログイン画面
-            loginView()
-                .environmentObject(AppLoginUserInfo)
+//            loginView()
+//                .environmentObject(AppLoginUserInfo)
         }
     }
 }
