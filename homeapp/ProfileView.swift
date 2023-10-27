@@ -11,8 +11,6 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct ProfileView: View {
-    @State private var email = ""
-
     @State private var userName = ""
     @State private var gender = ""
     @State private var age = ""
@@ -21,7 +19,7 @@ struct ProfileView: View {
 
     @State private var profileImageFileName = ""
     @State private var profileImage: Image?
-    
+
     //画像選択 定義
     @State private var image: UIImage?
     @State var showingImagePicker = false
@@ -41,12 +39,12 @@ struct ProfileView: View {
                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県",
                        "鹿児島県", "沖縄県"]
     let genders = ["男性", "女性", "その他"]
-    
+
     //幅 定義
     private let Rec_width:CGFloat = 120
     private let Item_width:CGFloat = 92
     private let Image_width:CGFloat = 120
-    
+
     //画面触ったらキーボード閉じる処理の準備
     enum Field: Hashable {
         case userName
@@ -65,7 +63,7 @@ struct ProfileView: View {
                     .scaledToFit()
                     .frame(width: Image_width, height: Image_width)
                     .foregroundColor(.black)
-                
+
                 if let uiImage = image {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -89,26 +87,26 @@ struct ProfileView: View {
             .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $image)
             }
-            
+
             //名前
             HStack{
-                    Text("Name")
-                        .frame(width: Item_width, height: 15, alignment:.leading)
+                Text("Name")
+                    .frame(width: Item_width, height: 15, alignment:.leading)
                 VStack{
                     TextField("", text:self.$userName)
                         .keyboardType(.default)
                         .frame(width: Rec_width, height: 15)
-                        //画面触ったらキーボード閉じる処理
+                    //画面触ったらキーボード閉じる処理
                         .focused($focusedField, equals: .userName)
                         .onTapGesture {
-                           focusedField = .userName
+                            focusedField = .userName
                         }
                     Rectangle()
                         .frame(width: Rec_width,height: 1.5)
                         .foregroundColor(.black)
                 }
             }
-            
+
             HStack{
                 Text("Gender")
                     .frame(width: Item_width, height: 15, alignment:.leading)
@@ -123,7 +121,7 @@ struct ProfileView: View {
                         .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
                 }
             }
-            
+
             HStack{
                 Text("Age")
                     .frame(width: Item_width, height: 15, alignment:.leading)
@@ -131,16 +129,16 @@ struct ProfileView: View {
                     TextField("", text:self.$age)
                         .keyboardType(.numberPad)
                         .frame(width: Rec_width, height: 15)
-                        //画面触ったらキーボード閉じる処理
+                    //画面触ったらキーボード閉じる処理
                         .focused($focusedField, equals: .age)
                         .onTapGesture {
-                           focusedField = .age
+                            focusedField = .age
                         }
                     Rectangle()
                         .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
                 }
             }
-            
+
             HStack{
                 Text("Location")
                     .frame(width: Item_width, height: 15, alignment:.leading)
@@ -163,10 +161,10 @@ struct ProfileView: View {
                     .keyboardType(.default)
                     .frame(width: 220,height: 150,alignment: .topLeading)
                     .border(Color.black,width: 1)
-                    //画面触ったらキーボード閉じる処理
+                //画面触ったらキーボード閉じる処理
                     .focused($focusedField, equals: .introduction)
                     .onTapGesture {
-                       focusedField = .introduction
+                        focusedField = .introduction
                     }
             }
 
@@ -174,17 +172,13 @@ struct ProfileView: View {
                 Button(action:{
                     Task {
                         do {
-                            //todo test用==
-                            email = AppLoginUserInfo.email
-                            //==
+                            //ユーザ情報変更
+                            let success = try await updateUser(userName: userName, gender: gender, age: age, residence: residence, introduction: introduction)
+                            if success {
+                                print("成功")
+                            } else {
 
-//                            //ユーザ情報変更
-//                            let success = try await updateUser(email: email, userName: userName, gender: gender, age: age, residence: residence, introduction: introduction)
-//                            if success {
-//                                print("成功")
-//                            } else {
-//
-//                            }
+                            }
                         }
                     }
                 }){
@@ -200,101 +194,76 @@ struct ProfileView: View {
                 // .frame(width: 220,height: 10)
             }
         }
-//        .onAppear() {
-//            //ログインユーザ情報取得
-//            getLoginUserInfo()
-//        }
+        .onAppear() {
+            //ログインユーザ情報取得
+            getLoginUserInfo()
+        }
+        //    画面触ったらキーボード閉じる処理
+        .onTapGesture {
+            focusedField = nil
+        }
     }
 
-//    //ログインユーザ情報取得
-//    private func getLoginUserInfo() {
-//
-//        //ユーザコレクション情報の取得
-//        self.email = AppLoginUserInfo.email
-//        self.userName = AppLoginUserInfo.userName
-//        self.gender = AppLoginUserInfo.gender
-//        self.age = AppLoginUserInfo.age
-//        self.residence = AppLoginUserInfo.residence
-//        self.introduction = AppLoginUserInfo.introduction
-//        self.profileImageFileName = AppLoginUserInfo.profileImageFileName
-//
-//        //プロフィール画像の取得
-//        self.profileImage = AppLoginUserInfo.profileImage
-//    }
+    //    //ログインユーザ情報取得
+    private func getLoginUserInfo() {
 
-//    //ユーザ情報変更
-//    // todo プロフィール画像の更新
-//    private func updateUser(email: String, userName: String, gender: String, age: String, residence: String, introduction: String) async throws -> Bool {
-//
-//        return try await withCheckedThrowingContinuation { continuation in
-//
-//            // 現在のemailを保持(ロールバック用)
-//            let currentEmail = Auth.auth().currentUser?.email
-//
-//            //更新日時
-//            let currentDateTime = Date()
-//            let updateDateTime: Timestamp = Timestamp(date: currentDateTime)
-//
-//            Auth.auth().currentUser?.updateEmail(to: email) { error in
-//                if let error = error {
-//                    print("ユーザ情報の変更失敗(Auth): \(error)")
-//                    continuation.resume(throwing: error)
-//                } else {
-//                    print("ユーザ情報の変更成功(Auth)")
-//                    // UIDを取得してFirestoreで他の情報を更新
-//                    if let uid = Auth.auth().currentUser?.uid {
-//                        let db = Firestore.firestore()
-//                        db.collection("users").document(uid).updateData([
-//                            "userName": userName,
-//                            "gender": gender,
-//                            "age": age,
-//                            "residence": residence,
-//                            "introduction": introduction,
-//                            "profileImgFileName": "",   //todo
-//                            "updateDate": updateDateTime
-//                        ]) { error in
-//                            if let error = error {
-//                                print("ユーザ情報の変更失敗(users collection): \(error)")
-//                                // Firestoreの更新が失敗した場合、emailを元に戻す(ロールバック)
-//                                if let currentEmail = currentEmail {
-//                                    Auth.auth().currentUser?.updateEmail(to: currentEmail) { rollbackError in
-//                                        if let rollbackError = rollbackError {
-//                                            print("Authロールバック失敗: \(rollbackError)")
-//                                        } else {
-//                                            print("Authロールバック成功")
-//                                        }
-//                                    }
-//                                }
-//                                continuation.resume(throwing: error)
-//
-//                            } else {
-//                                //ユーザ情報更新成功時
-//
-//                                //ログイン情報を更新
-//                                AppLoginUserInfo.email = email
-//                                AppLoginUserInfo.userName = userName
-//                                AppLoginUserInfo.gender = gender
-//                                AppLoginUserInfo.age = age
-//                                AppLoginUserInfo.residence = residence
-//                                AppLoginUserInfo.introduction = introduction
-//                                AppLoginUserInfo.profileImageFileName = ""   //todo
-//                                AppLoginUserInfo.updateDate = updateDateTime
-//
-//                                continuation.resume(returning: true)
-//                            }
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//        }
-//    }
-    //画面触ったらキーボード閉じる処理
-    //        .onTapGesture {
-    //            focusedField = nil
+        //ユーザコレクション情報の取得
+        self.userName = AppLoginUserInfo.userName
+        self.gender = AppLoginUserInfo.gender
+        self.age = AppLoginUserInfo.age
+        self.residence = AppLoginUserInfo.residence
+        self.introduction = AppLoginUserInfo.introduction
+        self.profileImageFileName = AppLoginUserInfo.profileImageFileName
+
+        //プロフィール画像の取得
+        self.profileImage = AppLoginUserInfo.profileImage
+    }
+
+    //ユーザ情報変更
+    // todo プロフィール画像の更新
+    private func updateUser(userName: String, gender: String, age: String, residence: String, introduction: String) async throws -> Bool {
+
+        return try await withCheckedThrowingContinuation { continuation in
+            //更新日時(Firestore用にTimestamp型に変換)
+            let currentDateTime = Date()
+            let updateDateTime: Timestamp = Timestamp(date: currentDateTime)
+
+            // UIDを取得してFirestoreで他の情報を更新
+            if let uid = Auth.auth().currentUser?.uid {
+                let db = Firestore.firestore()
+                db.collection(FirestoreCollections.users).document(uid).updateData([
+                    "userName": userName,
+                    "gender": gender,
+                    "age": age,
+                    "residence": residence,
+                    "introduction": introduction,
+                    "profileImgFileName": "",   //todo
+                    "updateDate": updateDateTime
+                ]) { error in
+                    if let error = error {
+                        print("ユーザ情報の変更失敗(users collection): \(error)")
+                        continuation.resume(throwing: error)
+
+                    } else {
+                        //ユーザ情報更新成功時。ログイン情報を更新
+                        AppLoginUserInfo.userName = userName
+                        AppLoginUserInfo.gender = gender
+                        AppLoginUserInfo.age = age
+                        AppLoginUserInfo.residence = residence
+                        AppLoginUserInfo.introduction = introduction
+                        AppLoginUserInfo.profileImageFileName = ""   //todo
+                        AppLoginUserInfo.updateDate = updateDateTime
+
+                        continuation.resume(returning: true)
+                    }
+                }
+
+            }
+        }
+
+    }
 }
+
 
 //画像選択ImagePicker
 struct ImagePicker: UIViewControllerRepresentable {
