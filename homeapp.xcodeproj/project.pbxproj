@@ -71,6 +71,7 @@
 		FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserInfo.swift; sourceTree = "<group>"; };
 		FC6B53FE2ACD83EA007F539F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		FC76F7F42AEB6008004DCAEA /* .gitignore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = .gitignore.md; sourceTree = "<group>"; };
 		FCC4A8E72ACA190100F0CFBC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +150,7 @@
 				45FDB9C92A8279EF0062F259 /* Assets.xcassets */,
 				45FDB9CE2A8279EF0062F259 /* Info.plist */,
 				45FDB9CB2A8279EF0062F259 /* Preview Content */,
+				FC76F7F42AEB6008004DCAEA /* .gitignore.md */,
 			);
 			path = homeapp;
 			sourceTree = "<group>";
