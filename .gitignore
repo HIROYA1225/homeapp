@@ -1,4 +1,5 @@
 *.xcuserdatad
+project.xcworkspace/xcuserdata/
 *.xcuserstate
 build/
 DerivedData/
