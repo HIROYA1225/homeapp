@@ -1,0 +1,8 @@
+*.xcuserdatad
+project.xcworkspace/xcuserdata/
+*.xcuserstate
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
