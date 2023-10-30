@@ -22,22 +22,22 @@ struct loginView: View {
         NavigationStack(path: $path){
             VStack(){
                 //==================================
-//                // todo あとで削除　強制ログアウトボタン
-//                Button(action: {
-//                    do {
-//                        try logout()
-//                        print("ログアウトしました")
-//                    } catch {
-//                        print("Failed to sign out")
-//                    }
-//                }){
-//                    Text("テスト用ログアウトボタン")
-//                        .font(.headline)
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .background(Color.red)
-//                        .cornerRadius(15.0)
-//                }
+                //                // todo あとで削除　強制ログアウトボタン
+                //                Button(action: {
+                //                    do {
+                //                        try logout()
+                //                        print("ログアウトしました")
+                //                    } catch {
+                //                        print("Failed to sign out")
+                //                    }
+                //                }){
+                //                    Text("テスト用ログアウトボタン")
+                //                        .font(.headline)
+                //                        .foregroundColor(.white)
+                //                        .padding()
+                //                        .background(Color.red)
+                //                        .cornerRadius(15.0)
+                //                }
                 //==================================
                 Text("褒めアプテスト")
                     .font(.largeTitle).foregroundColor(Color.black)
@@ -391,6 +391,7 @@ struct loginView_Previews: PreviewProvider {
 // todo ユーザ名登録画面(仮)
 struct RegisterNameOnlyView: View {
     @State private var userName: String = ""
+    @State private var returnMessage: String = ""
 
     //ログイン情報
     @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
@@ -400,24 +401,32 @@ struct RegisterNameOnlyView: View {
             TextField("ユーザー名", text: $userName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-
             Button("登録") {
                 Task {
                     do {
-                        //ユーザ名登録重複チェック
-
+                        //ユーザ名登録重複チェック(画面フィードバック用)
+                        let isUnique = try await isUserNameUnique(userName)
+                        if !isUnique {
+                            // todo アラート表示
+                            self.returnMessage = "ユーザ名が重複しています。"
+                            return
+                        }
                         // ユーザ名登録処理
                         let result = try await registerNameOnly()
                         if result {
+                            // todo アラート表示お願い & トップ画面に遷移
+                            self.returnMessage = "登録が完了しました。"
                             // トップ画面に遷移
-                            //path.append("toLoginCheck")
+                            // path.append("toLoginCheck")
+
                         } else {
-                            //ユーザ名登録エラー発生
+                            // todo アラート表示お願い
+                            self.returnMessage = "ユーザ名登録でエラーが発生しました。"
 
                         }
-
                     } catch {
-                        print("エラー: \(error)")
+                        // todo アラート表示お願い
+                        self.returnMessage = "ユーザ名登録でエラーが発生しました。"
                     }
                 }
             }
@@ -470,6 +479,15 @@ struct RegisterNameOnlyView: View {
             }
         }
 
+    }
+
+    // ユーザ名ユニークチェック
+    // 戻り値(すでに存在していればFalse 登録がなければTrue)
+    private func isUserNameUnique(_ userName: String) async throws -> Bool {
+        let db = Firestore.firestore()
+        let checkUserUniqueDocRef = db.collection(FirestoreCollections.checkUserUnique).document(userName)
+        let docSnapshot = try await checkUserUniqueDocRef.getDocument()
+        return !docSnapshot.exists
     }
 
 }
