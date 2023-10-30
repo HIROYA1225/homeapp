@@ -404,6 +404,13 @@ struct RegisterNameOnlyView: View {
             Button("登録") {
                 Task {
                     do {
+                        // 未入力チェック
+                        if userName.isEmpty {
+                            // todo アラート表示お願い
+                            self.returnMessage = "ユーザ名がを入力してください。"
+                            print(self.returnMessage)
+                            return
+                        }
                         //ユーザ名登録重複チェック(画面フィードバック用)
                         let isUnique = try await isUserNameUnique(userName)
                         if !isUnique {
