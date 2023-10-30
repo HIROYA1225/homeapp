@@ -32,5 +32,9 @@ struct AppImageName {
     static let ProfileImageNoSet_icon = "ProfileImageNoSet_icon"
 }
 
+// 拡張子
+struct FileExtension {
+    static let PngFileEx = ".png"
+}
 
 

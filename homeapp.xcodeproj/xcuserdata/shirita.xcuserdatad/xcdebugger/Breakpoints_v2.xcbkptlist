@@ -14,8 +14,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -110,8 +110,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "logout()"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
             landmarkName = "logout()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "loginView"
             landmarkType = "14">
             <Locations>
@@ -222,8 +222,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -270,8 +270,8 @@
             filePath = "homeapp/loginView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -412,6 +412,332 @@
             endingLineNumber = "24"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA86931A-C926-49DA-93A0-965916B9D1A2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "homeapp/loginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "getProfileImage(urlString:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BA86931A-C926-49DA-93A0-965916B9D1A2 - b0e0a7a2e57b0a46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for homeapp.loginView.getProfileImage(urlString: Swift.String) async throws -&gt; ()"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "654">
+               </Location>
+               <Location
+                  uuid = "BA86931A-C926-49DA-93A0-965916B9D1A2 - b0e0a7a2e57b0a23"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for homeapp.loginView.getProfileImage(urlString: Swift.String) async throws -&gt; ()"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "334"
+                  endingLineNumber = "334"
+                  offsetFromSymbolStart = "654">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FBF0CB10-B32C-4F7B-AFF6-46DB8FC468BC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "homeapp/loginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "getLoginUserInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "061C6B0D-39CC-4161-B802-C1C793636065"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "homeapp/loginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "getLoginUserInfo()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - ee97b90e7c93e838"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "7272">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 251c70312b2895e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "61">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 5950ab3ec214d38e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "256"
+                  endingLineNumber = "256"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 5950ab3ec2142d3a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "310">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 9409956f57998de7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "122">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 9409956f57997234"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - ee97b90e7c93e99b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "279"
+                  endingLineNumber = "279"
+                  offsetFromSymbolStart = "7700">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 251c70312b288fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "279"
+                  endingLineNumber = "279"
+                  offsetFromSymbolStart = "61">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 5950ab3ec214d38e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "256"
+                  endingLineNumber = "256"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 5950ab3ec2142c99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "279"
+                  endingLineNumber = "279"
+                  offsetFromSymbolStart = "312">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 9409956f57998de7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "263"
+                  endingLineNumber = "263"
+                  offsetFromSymbolStart = "138">
+               </Location>
+               <Location
+                  uuid = "061C6B0D-39CC-4161-B802-C1C793636065 - 9409956f57997397"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for homeapp.loginView.getLoginUserInfo() async throws -&gt; Swift.Bool"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "279"
+                  endingLineNumber = "279"
+                  offsetFromSymbolStart = "180">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "93D26697-108D-4DE1-BB6C-C93D47132B57"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "homeapp/loginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "getProfileImage(urlString:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "93D26697-108D-4DE1-BB6C-C93D47132B57 - e454609f8310fbf2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for homeapp.loginView.getProfileImage(urlString: Swift.String) async throws -&gt; ()"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "313"
+                  endingLineNumber = "313"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "93D26697-108D-4DE1-BB6C-C93D47132B57 - e454609f8310f857"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for homeapp.loginView.getProfileImage(urlString: Swift.String) async throws -&gt; ()"
+                  moduleName = "homeapp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shirita/forhomeapp/homeapp/homeapp/loginView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "316"
+                  endingLineNumber = "316"
+                  offsetFromSymbolStart = "124">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B86AD5FC-5CF9-4E0A-AD2B-F4555671770D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "homeapp/loginView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "getLoginUserInfo()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
