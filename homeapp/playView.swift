@@ -38,7 +38,7 @@ struct RippleAnimation: View {
     var body: some View {
         Circle()
             .fill(Color.blue.opacity(0.5))
-            .frame(width: 150, height: 150)
+            .frame(width: 300, height: 300)
             .scaleEffect(scale)
             .opacity(1 - Double(scale))
             .animation(

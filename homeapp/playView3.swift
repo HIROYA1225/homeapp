@@ -31,7 +31,7 @@ struct playView3: View {
                     // 配列に追加する
                     powerLevels.append(power)
                     // 配列の要素数が20を超えたら、先頭の要素を削除する
-                    if powerLevels.count > 10 {
+                    if powerLevels.count > 15 {
                         powerLevels.removeFirst()
                     }
                 }
