@@ -10,6 +10,10 @@ import Liquid
 
 struct homeView: View {
     @State private var isPlay = false
+
+    //ログイン情報
+    @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
+
     var body: some View {
         VStack {
             ZStack{
@@ -33,6 +37,24 @@ struct homeView: View {
                 self.isPlay = !isPlay
             }){
                 Image(systemName: "speaker.wave.3.fill")
+            }
+        }
+        .onAppear {
+            Task {
+                do {
+                    // ユーザ情報取得
+                    let result = try await getLoginUserInfo(AppLoginUserInfo: AppLoginUserInfo)
+                    if !result {
+                        // todo ログアウトとログイン画面へ遷移
+                    } else {
+                        // プロフィール画像取得
+                        try await getProfileImage(AppLoginUserInfo: AppLoginUserInfo)
+                    }
+
+                } catch {
+                    print(error)
+                    // todo エラーアラート表示とログイン画面へ遷移
+                }
             }
         }
     }

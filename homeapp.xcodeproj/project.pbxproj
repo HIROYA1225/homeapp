@@ -51,6 +51,9 @@
 		FC6B53FF2ACD83EA007F539F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B53FE2ACD83EA007F539F /* Util.swift */; };
 		FCB0E7622AC8ED51005B7F6A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FCB0E7612AC8ED51005B7F6A /* GoogleSignIn */; };
 		FCB0E7642AC8ED51005B7F6A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FCB0E7632AC8ED51005B7F6A /* GoogleSignInSwift */; };
+		FCBFCF812AF72D0C004CB009 /* loadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFCF802AF72D0C004CB009 /* loadingView.swift */; };
+		FCBFCF832AF72D28004CB009 /* iraiEmailConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFCF822AF72D28004CB009 /* iraiEmailConfirmView.swift */; };
+		FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFCF842AF731DB004CB009 /* RegisterNameOnlyView.swift */; };
 		FCC4A8E82ACA190100F0CFBC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC4A8E72ACA190100F0CFBC /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +75,9 @@
 		FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserInfo.swift; sourceTree = "<group>"; };
 		FC6B53FE2ACD83EA007F539F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		FC76F7F42AEB6008004DCAEA /* .gitignore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = .gitignore.md; sourceTree = "<group>"; };
+		FCBFCF802AF72D0C004CB009 /* loadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadingView.swift; sourceTree = "<group>"; };
+		FCBFCF822AF72D28004CB009 /* iraiEmailConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iraiEmailConfirmView.swift; sourceTree = "<group>"; };
+		FCBFCF842AF731DB004CB009 /* RegisterNameOnlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNameOnlyView.swift; sourceTree = "<group>"; };
 		FCC4A8E72ACA190100F0CFBC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +157,9 @@
 				45FDB9CE2A8279EF0062F259 /* Info.plist */,
 				45FDB9CB2A8279EF0062F259 /* Preview Content */,
 				FC76F7F42AEB6008004DCAEA /* .gitignore.md */,
+				FCBFCF802AF72D0C004CB009 /* loadingView.swift */,
+				FCBFCF822AF72D28004CB009 /* iraiEmailConfirmView.swift */,
+				FCBFCF842AF731DB004CB009 /* RegisterNameOnlyView.swift */,
 			);
 			path = homeapp;
 			sourceTree = "<group>";
@@ -292,8 +301,11 @@
 				3304516C2AD151E10096F704 /* reportView.swift in Sources */,
 				FC0DE4E32AC77846004D1003 /* LoginUserInfo.swift in Sources */,
 				330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */,
+				FCBFCF812AF72D0C004CB009 /* loadingView.swift in Sources */,
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
+				FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */,
 				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
+				FCBFCF832AF72D28004CB009 /* iraiEmailConfirmView.swift in Sources */,
 				45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */,
 				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
 				FC6B53FF2ACD83EA007F539F /* Util.swift in Sources */,

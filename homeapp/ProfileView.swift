@@ -50,6 +50,27 @@ struct ProfileView: View {
     var body: some View {
         VStack(spacing:30){
 
+//            //==================================
+//            // todo あとで削除　強制ログアウトボタン
+//            Button(action: {
+//                do {
+//                    if try logout(AppLoginUserInfo: AppLoginUserInfo) {
+//                        print("ログアウト成功")
+//                    }
+//                } catch {
+//                    print("Failed to sign out")
+//                }
+//            }){
+//                Text("テスト用ログアウトボタン")
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//                    .padding()
+//                    .background(Color.red)
+//                    .cornerRadius(15.0)
+//            }
+//            //==================================
+
+
             HStack{
                 Button(action:{}){
                     Image(systemName: "person.crop.circle")

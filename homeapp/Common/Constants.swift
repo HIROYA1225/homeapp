@@ -22,7 +22,7 @@ struct FirestoreFields {
         static let updateDate = "updateDate"
     }
     struct CheckUniqueUser {
-        static let dummy = "dummhy"
+        static let dummy = "dummy"
     }
 }
 
