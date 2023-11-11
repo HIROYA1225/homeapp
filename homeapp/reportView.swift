@@ -10,10 +10,12 @@ import SwiftUI
 struct reportView: View {
     @State private var remarks = ""
     @State private var selectedIndex = 0
-    @State private var CompleteAlert = false   // 完了アラートの表示フラグ
-    @State private var DeleteAlert = false   // 削除アラートの表示フラグ
+    @State private var completeAlert = false   // 完了アラートの表示フラグ
+    @State private var deleteAlert = false   // 削除アラートの表示フラグ
         
-    let texts = ["プロフィール画像が不適切", "ユーザー名が不適切", "褒め言葉が不適切", "その他"]
+    let reasons = ["プロフィール画像が不適切", "ユーザー名が不適切", "褒め言葉が不適切", "その他"]  // 通報理由リスト
+    let userImageWidth: CGFloat = 100
+    let remarksWidth: CGFloat = 220
 
     //画面触ったらキーボード閉じる処理の準備
     enum Field: Hashable {
@@ -24,32 +26,27 @@ struct reportView: View {
     @FocusState private var focusedField: Field?
     var body: some View {
         VStack(spacing:30){
-            
-            HStack{
-                Button(action:{}){
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.black)
-                }
-            }
+            Image(systemName: "person.crop.circle") //ユーザー画像
+                .resizable()
+                .scaledToFit()
+                .frame(width: userImageWidth, height: userImageWidth)
+                .foregroundColor(.black)
             
             HStack{
                 Text("通報する理由を以下から選択して下さい。")
-                    .frame(width: UIScreen.main.bounds.width, height: 15)
+                    .frame(width: screenWidth, height: 15)
             }
             
             VStack {
-                RadioButton(selectedIndex: $selectedIndex, axis: .vertical, texts: texts)
+                RadioButton(selectedIndex: $selectedIndex, axis: .vertical, texts: reasons)
             }
         
             VStack{
                 Text("備考")
-                    .frame(width: 220, height: 15, alignment:.leading)
+                    .frame(width: remarksWidth, height: 15, alignment:.leading)
                 TextEditor(text:self.$remarks)
                     .keyboardType(.default)
-                    .frame(width: 220,height: 100,alignment: .topLeading)
+                    .frame(width: remarksWidth,height: 100,alignment: .topLeading)
                     .border(Color.black,width: 1)
                     //画面触ったらキーボード閉じる処理
                     .focused($focusedField, equals: .introduction)
@@ -58,23 +55,24 @@ struct reportView: View {
                     }
             }
             
+            //通報ボタン
             Button("通報") {
-                self.CompleteAlert = true          // タップされたら表示フラグをtrueにする
+                self.completeAlert = true          // タップされたら表示フラグをtrueにする
             }
             .font(.headline)
             .foregroundColor(.white)
             .padding()
             .background(Color.blue)
             .cornerRadius(20.0)
-            .alert(isPresented: $CompleteAlert) {  // アラートの表示条件設定
+            .alert(isPresented: $completeAlert) {  // アラートの表示条件設定
                 Alert(title: Text("通報しました。"),     // アラートの定義
                     message: Text("ご協力ありがとうございました。"))
             }
          
-            Button("削除アラート表示") {
-                        self.DeleteAlert = true
+            Button("削除アラート表示") {    //削除アラート表示用ボタン 仮置き
+                        self.deleteAlert = true
                     }
-                    .alert("現在の内容は削除されます。", isPresented: $DeleteAlert){
+                    .alert("現在の内容は削除されます。", isPresented: $deleteAlert){     //アラート内容
                         Button("キャンセル", role: .cancel){
                                         // キャンセルが押された時の処理
                         }
@@ -82,7 +80,7 @@ struct reportView: View {
                                         // データ削除処理
                         }
                     } message: {
-                        Text("よろしいですか？")
+                        Text("よろしいですか？")    //確認メッセージ
                     }
             
         }
@@ -93,7 +91,7 @@ struct reportView: View {
     }
 }
 
-struct reportView_Previews: PreviewProvider {
+struct reportView_Previews: PreviewProvider {   //画面プレビュー
     static var previews: some View {
         reportView()
     }
