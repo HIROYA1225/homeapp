@@ -1,58 +1,97 @@
-
+//
+//  playView5.swift
+//  homeapp
+//
+//  Created by HIRO on 2023/10/31.
+//
 import SwiftUI
-import Liquid
+import AVFoundation
 
-struct playView: View {
-    @State private var showRipple = false
-    
+struct PlayView: View {
+    // 音声ファイルのURL
+    let audioURL = Bundle.main.url(forResource: "mp3/announce", withExtension: "mp3")!
+
+    // 音声プレイヤー
+    @State var audioPlayer: AVAudioPlayer?
+
+    // 音声の平均パワー
+    @State var averagePower: Float = 0
+
+    // タイマー
+    @State var timer: Timer?
+
+    // ボタンのテキスト
+    @State var buttonText = "Play"
+
     var body: some View {
         VStack {
+            // 円の描画
+            Circle()
+                .stroke(lineWidth: 2)
+                .frame(width: 200, height: 200)
+                // 円の縁のアニメーション
+                .scaleEffect(1 + CGFloat(averagePower) / 100)
+                .animation(.easeInOut(duration: 0.1))
+
+            // ボタンの描画
             Button(action: {
-                withAnimation {
-                    showRipple.toggle()
+                // ボタンが押されたときの処理
+                if self.audioPlayer == nil {
+                    // 音声プレイヤーを初期化
+                    self.initAudioPlayer()
+                }
+
+                if self.audioPlayer?.isPlaying == true {
+                    // 音声が再生中なら停止する
+                    self.audioPlayer?.stop()
+                    self.timer?.invalidate()
+                    self.buttonText = "Play"
+                } else {
+                    // 音声が停止中なら再生する
+                    self.audioPlayer?.play()
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+                        // タイマーで定期的に音声の平均パワーを更新する
+                        self.updateAveragePower()
+                    }
+                    self.buttonText = "Stop"
                 }
             }) {
-                Text("アニメーションを開始")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            
-            ZStack {
-                Circle()
-                    .stroke(lineWidth: 2)
-                    .frame(width: 200, height: 200)
-                
-                if showRipple {
-                    RippleAnimation()
-                }
+                Text(buttonText)
+                    .font(.largeTitle)
             }
         }
     }
-}
 
-struct RippleAnimation: View {
-    @State private var scale: CGFloat = 0.1
-    
-    var body: some View {
-        Circle()
-            .fill(Color.blue.opacity(0.5))
-            .frame(width: 150, height: 150)
-            .scaleEffect(scale)
-            .opacity(1 - Double(scale))
-            .animation(
-                Animation.easeOut(duration: 5)
-                    .repeatForever(autoreverses: false)
-            )
-            .onAppear() {
-                self.scale = 1.0
-            }
+    // 音声プレイヤーを初期化する関数
+    func initAudioPlayer() {
+        do {
+            // 音声プレイヤーを作成する
+            audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
+            audioPlayer?.prepareToPlay()
+            // メータリングを有効にする
+            audioPlayer?.isMeteringEnabled = true
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+
+    // 音声の平均パワーを更新する関数
+    func updateAveragePower() {
+        // 現在のチャンネルの平均パワーを取得する
+        audioPlayer?.updateMeters()
+        averagePower = audioPlayer?.averagePower(forChannel: 0) ?? 0
+
+        // 平均パワーが-160以下なら0にする（無音に近い）
+        if averagePower < -160 {
+            averagePower = 0
+        }
+
+        print("Average power: \(averagePower)")
     }
 }
 
-struct playView_Previews: PreviewProvider {
+struct PlayView_Previews: PreviewProvider {
     static var previews: some View {
-        playView()
+        PlayView()
     }
 }
