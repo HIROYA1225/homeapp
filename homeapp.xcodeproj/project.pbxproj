@@ -12,6 +12,7 @@
 		33D06BBE2AEF76DA00D80BB7 /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */; };
 		45859F882AC4684300B7F521 /* tabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F872AC4684300B7F521 /* tabView.swift */; };
 		45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F892AC46CBF00B7F521 /* playView.swift */; };
+		45904B2A2AFFC2D0007AFF8B /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45904B292AFFC2D0007AFF8B /* mp3 */; };
 		45B255632A94DACE00F94892 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255622A94DACE00F94892 /* loginView.swift */; };
 		45B255672A94FBF100F94892 /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255662A94FBF100F94892 /* homeView.swift */; };
 		45B255692A94FC3900F94892 /* registerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255682A94FC3900F94892 /* registerView.swift */; };
@@ -61,6 +62,7 @@
 		33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
 		45859F872AC4684300B7F521 /* tabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabView.swift; sourceTree = "<group>"; };
 		45859F892AC46CBF00B7F521 /* playView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playView.swift; sourceTree = "<group>"; };
+		45904B292AFFC2D0007AFF8B /* mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = mp3; path = homeapp/mp3; sourceTree = SOURCE_ROOT; };
 		45B255622A94DACE00F94892 /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		45B255662A94FBF100F94892 /* homeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeView.swift; sourceTree = "<group>"; };
 		45B255682A94FC3900F94892 /* registerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		45FDB9C42A8279ED0062F259 /* homeapp */ = {
 			isa = PBXGroup;
 			children = (
+				45904B292AFFC2D0007AFF8B /* mp3 */,
 				FCC4A8E62ACA18E700F0CFBC /* Common */,
 				FC0DE4E12AC77802004D1003 /* Models */,
 				FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */,
@@ -278,6 +281,7 @@
 				45FDB9CD2A8279EF0062F259 /* Preview Assets.xcassets in Resources */,
 				45FDB9CA2A8279EF0062F259 /* Assets.xcassets in Resources */,
 				FC0DE4A92AC70696004D1003 /* GoogleService-Info.plist in Resources */,
+				45904B2A2AFFC2D0007AFF8B /* mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
