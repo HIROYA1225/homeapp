@@ -19,6 +19,9 @@
 		45FDB9CA2A8279EF0062F259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45FDB9C92A8279EF0062F259 /* Assets.xcassets */; };
 		45FDB9CD2A8279EF0062F259 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45FDB9CC2A8279EF0062F259 /* Preview Assets.xcassets */; };
 		45FDB9D62A827CB00062F259 /* Liquid in Frameworks */ = {isa = PBXBuildFile; productRef = 45FDB9D52A827CB00062F259 /* Liquid */; };
+		FC075E4C2B0046E30007A225 /* LoginUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC075E4B2B0046E30007A225 /* LoginUserInfo.swift */; };
+		FC075E502B0047C10007A225 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC075E4E2B0047C10007A225 /* Constants.swift */; };
+		FC075E512B0047C10007A225 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC075E4F2B0047C10007A225 /* Util.swift */; };
 		FC0DE4A92AC70696004D1003 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */; };
 		FC0DE4AC2AC70807004D1003 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4AB2AC70807004D1003 /* FirebaseAnalytics */; };
 		FC0DE4AE2AC70807004D1003 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4AD2AC70807004D1003 /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -47,14 +50,11 @@
 		FC0DE4DC2AC70807004D1003 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4DB2AC70807004D1003 /* FirebaseRemoteConfigSwift */; };
 		FC0DE4DE2AC70807004D1003 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4DD2AC70807004D1003 /* FirebaseStorage */; };
 		FC0DE4E02AC70807004D1003 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = FC0DE4DF2AC70807004D1003 /* FirebaseStorageCombine-Community */; };
-		FC0DE4E32AC77846004D1003 /* LoginUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */; };
-		FC6B53FF2ACD83EA007F539F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B53FE2ACD83EA007F539F /* Util.swift */; };
 		FCB0E7622AC8ED51005B7F6A /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FCB0E7612AC8ED51005B7F6A /* GoogleSignIn */; };
 		FCB0E7642AC8ED51005B7F6A /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FCB0E7632AC8ED51005B7F6A /* GoogleSignInSwift */; };
 		FCBFCF812AF72D0C004CB009 /* loadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFCF802AF72D0C004CB009 /* loadingView.swift */; };
 		FCBFCF832AF72D28004CB009 /* iraiEmailConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFCF822AF72D28004CB009 /* iraiEmailConfirmView.swift */; };
 		FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBFCF842AF731DB004CB009 /* RegisterNameOnlyView.swift */; };
-		FCC4A8E82ACA190100F0CFBC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC4A8E72ACA190100F0CFBC /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,14 +71,14 @@
 		45FDB9C92A8279EF0062F259 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45FDB9CC2A8279EF0062F259 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		45FDB9CE2A8279EF0062F259 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC075E4B2B0046E30007A225 /* LoginUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserInfo.swift; sourceTree = "<group>"; };
+		FC075E4E2B0047C10007A225 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FC075E4F2B0047C10007A225 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserInfo.swift; sourceTree = "<group>"; };
-		FC6B53FE2ACD83EA007F539F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		FC76F7F42AEB6008004DCAEA /* .gitignore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = .gitignore.md; sourceTree = "<group>"; };
 		FCBFCF802AF72D0C004CB009 /* loadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadingView.swift; sourceTree = "<group>"; };
 		FCBFCF822AF72D28004CB009 /* iraiEmailConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iraiEmailConfirmView.swift; sourceTree = "<group>"; };
 		FCBFCF842AF731DB004CB009 /* RegisterNameOnlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNameOnlyView.swift; sourceTree = "<group>"; };
-		FCC4A8E72ACA190100F0CFBC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,10 +141,9 @@
 		45FDB9C42A8279ED0062F259 /* homeapp */ = {
 			isa = PBXGroup;
 			children = (
-				FCC4A8E62ACA18E700F0CFBC /* Common */,
-				FC0DE4E12AC77802004D1003 /* Models */,
 				FC0DE4A82AC70695004D1003 /* GoogleService-Info.plist */,
 				45FDB9C52A8279ED0062F259 /* homeappApp.swift */,
+				FC075E4A2B0046E30007A225 /* Models */,
 				45B255622A94DACE00F94892 /* loginView.swift */,
 				330D241C2ABB22E900269B40 /* ProfileView.swift */,
 				3304516B2AD151E10096F704 /* reportView.swift */,
@@ -172,22 +171,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		FC0DE4E12AC77802004D1003 /* Models */ = {
+		FC075E4A2B0046E30007A225 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FC0DE4E22AC77846004D1003 /* LoginUserInfo.swift */,
+				FC075E4D2B0047C10007A225 /* Common */,
+				FC075E4B2B0046E30007A225 /* LoginUserInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		FCC4A8E62ACA18E700F0CFBC /* Common */ = {
+		FC075E4D2B0047C10007A225 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				FCC4A8E72ACA190100F0CFBC /* Constants.swift */,
-				FC6B53FE2ACD83EA007F539F /* Util.swift */,
+				FC075E4E2B0047C10007A225 /* Constants.swift */,
+				FC075E4F2B0047C10007A225 /* Util.swift */,
 			);
-			path = Common;
-			sourceTree = "<group>";
+			name = Common;
+			path = homeapp/Common;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -298,19 +299,19 @@
 			files = (
 				45859F882AC4684300B7F521 /* tabView.swift in Sources */,
 				45FDB9C82A8279ED0062F259 /* ContentView.swift in Sources */,
+				FC075E4C2B0046E30007A225 /* LoginUserInfo.swift in Sources */,
 				3304516C2AD151E10096F704 /* reportView.swift in Sources */,
-				FC0DE4E32AC77846004D1003 /* LoginUserInfo.swift in Sources */,
 				330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */,
 				FCBFCF812AF72D0C004CB009 /* loadingView.swift in Sources */,
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
+				FC075E512B0047C10007A225 /* Util.swift in Sources */,
 				FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */,
 				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
 				FCBFCF832AF72D28004CB009 /* iraiEmailConfirmView.swift in Sources */,
 				45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */,
+				FC075E502B0047C10007A225 /* Constants.swift in Sources */,
 				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
-				FC6B53FF2ACD83EA007F539F /* Util.swift in Sources */,
 				45FDB9C62A8279ED0062F259 /* homeappApp.swift in Sources */,
-				FCC4A8E82ACA190100F0CFBC /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
