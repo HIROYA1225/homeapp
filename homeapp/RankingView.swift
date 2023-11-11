@@ -17,6 +17,7 @@ struct RankingView: View {
 
     var body: some View {
         VStack{
+            // ランキングタイトル
             Text("ほめランキング")
                 .font(.headline)
                 .foregroundColor(.black)
@@ -24,13 +25,13 @@ struct RankingView: View {
                 .background(Color.cyan)
             
             //期間
-            Picker("", selection: self.$period) {
+            Picker("", selection: self.$period) {   //プルダウン作成
                 ForEach(period_list, id: \.self) { item in
                     Text(item)
                 }
             }
             
-            HStack(spacing:40){
+            HStack(spacing:40){     //spacing:左右の空白
                 //2位ユーザー
                 VStack(spacing:5){
                     Spacer().frame(height:40)
@@ -38,8 +39,8 @@ struct RankingView: View {
                         Image(systemName: "crown.fill")     //王冠
                             .resizable()
                             .scaledToFit()
-                            .frame(width: width/3, height: width/3)
-                            .foregroundColor(.gray)
+                            .frame(width: width/3, height: width/3) //画像のサイズ
+                            .foregroundColor(.gray) //画像の色
                         Image(systemName: "person.crop.circle")     //ユーザーアイコン
                             .resizable()
                             .scaledToFit()
@@ -113,7 +114,7 @@ struct RankingView: View {
             VStack{
                 HStack{
                     Text("4") //順位
-                    Text("")
+                    Text("")    //空白
                     Image(systemName: "person.crop.circle")     //ユーザーアイコン
                         .resizable()
                         .scaledToFit()
@@ -238,10 +239,10 @@ struct RankingView: View {
                 Spacer()
             }
             .font(.headline)
-            .frame(width: width*2, height: width*2.3)
-            .foregroundColor(.black)
+            .frame(width: width*2, height: width*2.3) //4位以下の枠サイズ
+            .foregroundColor(.black)    //4位以下の文字色
             .padding()
-            .background(Color.mint)
+            .background(Color.mint)     // 4位以下の背景色
         }
     }
 }

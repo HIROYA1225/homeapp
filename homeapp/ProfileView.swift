@@ -10,16 +10,19 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+let screenWidth = UIScreen.main.bounds.width
+let screenHeight = UIScreen.main.bounds.height
+
 struct ProfileView: View {
     @State private var email = ""
 
-    @State private var userName = ""
-    @State private var gender = ""
-    @State private var age = ""
-    @State private var residence = ""
-    @State private var introduction = ""
+    @State private var userName = ""    //ユーザー名
+    @State private var gender = ""  //性別
+    @State private var age = ""     //年齢
+    @State private var residence = ""   //住所
+    @State private var introduction = ""    //紹介文
 
-    @State private var profileImageFileName = ""
+    @State private var profileImageFileName = ""    //プロフィール画像ファイル名
     @State private var profileImage: Image?
     
     //画像選択 定義
@@ -39,13 +42,16 @@ struct ProfileView: View {
                        "鳥取県", "島根県", "岡山県", "広島県", "山口県",
                        "徳島県", "香川県", "愛媛県", "高知県", "福岡県",
                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県",
-                       "鹿児島県", "沖縄県"]
-    let genders = ["男性", "女性", "その他"]
+                       "鹿児島県", "沖縄県"]   //都道府県
+    let genders = ["男性", "女性", "その他"]   //性別
     
     //幅 定義
-    private let Rec_width:CGFloat = 120
-    private let Item_width:CGFloat = 92
-    private let Image_width:CGFloat = 120
+    private let recWidth:CGFloat = 120     //下線幅
+    private let recHeight:CGFloat = 1.5     //下線高さ
+    private let itemWidth:CGFloat = 92     //項目幅
+    private let itemHeight:CGFloat = 15     //項目高さ
+    private let imageWidth:CGFloat = 120   //画像
+    private let introWidth:CGFloat = 220   //画像
     
     //画面触ったらキーボード閉じる処理の準備
     enum Field: Hashable {
@@ -63,26 +69,29 @@ struct ProfileView: View {
                 Image(systemName: "person.crop.circle")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: Image_width, height: Image_width)
+                    .frame(width: imageWidth, height: imageWidth)
                     .foregroundColor(.black)
                 
+                //画像選択処理
                 if let uiImage = image {
                     Image(uiImage: uiImage)
                         .resizable()
-                        .frame(width: Image_width, height: Image_width)
+                        .frame(width: imageWidth, height: imageWidth)
                         .clipShape(Circle())
                 } else {
                     Image("noimage")
                         .resizable()
-                        .frame(width: Image_width, height: Image_width)
+                        .frame(width: imageWidth, height: imageWidth)
                         .clipShape(Circle())
                 }
+                
+                //プロフィール画像ボタン
                 Button(action: {
-                    showingImagePicker = true
+                    showingImagePicker = true   //画像選択画面表示
                 }){
                     Image("noimage")
                         .resizable()
-                        .frame(width: Image_width, height: Image_width)
+                        .frame(width: imageWidth, height: imageWidth)
                         .clipShape(Circle())
                 }
             }
@@ -92,76 +101,76 @@ struct ProfileView: View {
             
             //名前
             HStack{
-                    Text("Name")
-                        .frame(width: Item_width, height: 15, alignment:.leading)
+                    Text("Name")    //項目"Name"
+                        .frame(width: itemWidth, height: itemHeight, alignment:.leading)
                 VStack{
                     TextField("", text:self.$userName)
                         .keyboardType(.default)
-                        .frame(width: Rec_width, height: 15)
+                        .frame(width: recWidth, height: itemHeight)
                         //画面触ったらキーボード閉じる処理
                         .focused($focusedField, equals: .userName)
                         .onTapGesture {
                            focusedField = .userName
                         }
                     Rectangle()
-                        .frame(width: Rec_width,height: 1.5)
+                        .frame(width: recWidth,height: recHeight)
                         .foregroundColor(.black)
                 }
             }
             
             HStack{
                 Text("Gender")
-                    .frame(width: Item_width, height: 15, alignment:.leading)
+                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
                 VStack{
                     Picker("", selection: self.$gender) {
                         ForEach(genders, id: \.self) { item in
                             Text(item)
                         }
                     }
-                    .frame(width: Rec_width, height: 15, alignment:.leading)
+                    .frame(width: recWidth, height: itemHeight, alignment:.leading)
                     Rectangle()
-                        .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
+                        .frame(width: recWidth,height: recHeight).foregroundColor(.black)
                 }
             }
             
             HStack{
                 Text("Age")
-                    .frame(width: Item_width, height: 15, alignment:.leading)
+                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
                 VStack{
                     TextField("", text:self.$age)
                         .keyboardType(.numberPad)
-                        .frame(width: Rec_width, height: 15)
+                        .frame(width: recWidth, height: itemHeight)
                         //画面触ったらキーボード閉じる処理
                         .focused($focusedField, equals: .age)
                         .onTapGesture {
                            focusedField = .age
                         }
                     Rectangle()
-                        .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
+                        .frame(width: recWidth,height: recHeight).foregroundColor(.black)
                 }
             }
             
             HStack{
                 Text("Location")
-                    .frame(width: Item_width, height: 15, alignment:.leading)
+                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
                 VStack{
                     Picker("", selection: self.$residence) {
                         ForEach(prefectures, id: \.self) { item in
                             Text(item)
                         }
                     }
-                    .frame(width: Rec_width, height: 15, alignment:.leading)
+                    .frame(width: recWidth, height: itemHeight, alignment:.leading)
                     Rectangle()
-                        .frame(width: Rec_width,height: 1.5).foregroundColor(.black)
+                        .frame(width: recWidth,height: recHeight).foregroundColor(.black)
                 }
             }
 
             VStack{
                 Text("About")
-                    .frame(width: 220, height: 15, alignment:.leading)
+                    .frame(width: introWidth, height: itemHeight, alignment:.leading)
                 TextEditor(text:self.$introduction)
                     .keyboardType(.default)
-                    .frame(width: 220,height: 150,alignment: .topLeading)
+                    .frame(width: introWidth,height: 150,alignment: .topLeading)
                     .border(Color.black,width: 1)
                     //画面触ったらキーボード閉じる処理
                     .focused($focusedField, equals: .introduction)
@@ -169,7 +178,8 @@ struct ProfileView: View {
                        focusedField = .introduction
                     }
             }
-
+            
+            //決定ボタン
             HStack(){
                 Button(action:{
                     Task {
@@ -194,12 +204,14 @@ struct ProfileView: View {
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(20.0)
-                    // .frame(width: 220,height: 10)
-
                 }
-                // .frame(width: 220,height: 10)
             }
         }
+        //    画面触ったらキーボード閉じる処理
+        .onTapGesture {
+            focusedField = nil
+        }
+
 //        .onAppear() {
 //            //ログインユーザ情報取得
 //            getLoginUserInfo()
@@ -291,9 +303,6 @@ struct ProfileView: View {
 //
 //        }
 //    }
-    //画面触ったらキーボード閉じる処理
-    //        .onTapGesture {
-    //            focusedField = nil
 }
 
 //画像選択ImagePicker
