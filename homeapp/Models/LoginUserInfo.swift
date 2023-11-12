@@ -23,7 +23,7 @@ class LoginUserInfo: ObservableObject {
     @Published var createDate: Timestamp?
     @Published var updateDate: Timestamp?
 
-    @Published var profileImage: Image?   //登録のプロフィール画像
+    @Published var profileImage: UIImage?   //登録のプロフィール画像
 
 }
 

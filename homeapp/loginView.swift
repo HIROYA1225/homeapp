@@ -60,8 +60,6 @@ struct loginView: View {
                                     if try await getLoginUserInfo() {
                                         // トップ画面へ遷移
                                         path.append("toLoginCheck")
-                                        //todo awaitさせないと画面表示早くなるかも
-                                        try await getProfileImage()
                                     }
                                 } else {
                                     //ユーザ名登録画面へ遷移
@@ -101,8 +99,6 @@ struct loginView: View {
                                                 // トップ画面へ遷移
 //                                                path.append("toLoginCheck")
                                                 path.append("toProfile")
-                                                //todo awaitさせないと画面表示早くなるかも
-                                                try await getProfileImage()
                                             }
                                         } else {
                                             //ユーザ名登録画面へ遷移
@@ -259,59 +255,59 @@ struct loginView: View {
         let db = Firestore.firestore()
         let docRef = db.collection(FirestoreCollections.users).document(AppLoginUserInfo.userUid)
 
-        return try await withCheckedThrowingContinuation { continuation in
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists, let data = document.data() {
-                    AppLoginUserInfo.userName = data[FirestoreFields.Users.userName] as? String ?? ""
-                    AppLoginUserInfo.gender = data[FirestoreFields.Users.gender] as? String ?? ""
-                    AppLoginUserInfo.age = data[FirestoreFields.Users.age] as? String ?? ""
-                    AppLoginUserInfo.residence = data[FirestoreFields.Users.residence] as? String ?? ""
-                    AppLoginUserInfo.introduction = data[FirestoreFields.Users.introduction] as? String ?? ""
-                    AppLoginUserInfo.profileImageFileName = data[FirestoreFields.Users.profileImageFileName] as? String ?? ""
-                    AppLoginUserInfo.createDate = data[FirestoreFields.Users.createDate] as? Timestamp ?? nil
-                    AppLoginUserInfo.updateDate = data[FirestoreFields.Users.updateDate] as? Timestamp ?? nil
+        do {
+            //ドキュメント情報の取得
+            let document = try await docRef.getDocument()
 
-                    continuation.resume(returning: true)
-                }else {
-                    print("ドキュメントの取得中にエラーが発生しました: \(error?.localizedDescription ?? "エラーの詳細なし")")
-                    continuation.resume(throwing: NSError(domain: "", code: 0, userInfo: nil))
-                }
+            // ドキュメントが存在しない場合またはデータが取得できない場合
+            guard let data = document.data(), document.exists else {
+                throw NSError(domain: "", code: 0, userInfo: nil)
             }
+            // 画像URLを変数にセット
+            let urlString = data[FirestoreFields.Users.profileImageFileName] as? String ?? ""
+
+            AppLoginUserInfo.userName = data[FirestoreFields.Users.userName] as? String ?? ""
+            AppLoginUserInfo.gender = data[FirestoreFields.Users.gender] as? String ?? ""
+            AppLoginUserInfo.age = data[FirestoreFields.Users.age] as? String ?? ""
+            AppLoginUserInfo.residence = data[FirestoreFields.Users.residence] as? String ?? ""
+            AppLoginUserInfo.introduction = data[FirestoreFields.Users.introduction] as? String ?? ""
+            AppLoginUserInfo.profileImageFileName = urlString
+            AppLoginUserInfo.createDate = data[FirestoreFields.Users.createDate] as? Timestamp ?? nil
+            AppLoginUserInfo.updateDate = data[FirestoreFields.Users.updateDate] as? Timestamp ?? nil
+
+            // 画像データの取得
+            try await self.getProfileImage(urlString: urlString)
+
+            return true
+
+        } catch {
+            throw error
         }
     }
 
-    //プロフィール画像取得処理
-    private func getProfileImage() async throws -> Void {
-
-        //uiImageとImage型変換用
-        var uiImageProf: UIImage?
-
-        //デフォルト画像
-        AppLoginUserInfo.profileImage = Image(AppImageName.ProfileImageNoSet_icon)
-
-        //登録画像がある場合、
-        let profileImageFileName = AppLoginUserInfo.profileImageFileName
-        if !profileImageFileName.isEmpty {
-            //画像パス作成
-            let imgDir = URL(string: FirebaseStorage.profileImageDirName)!
-            let imgDirWithSubfolder = imgDir.appendingPathComponent(AppLoginUserInfo.userUid)
-            let proImgFullPath = imgDirWithSubfolder.appendingPathComponent(profileImageFileName).absoluteString
-
-            let storage = Storage.storage()
-            let storageRef = storage.reference()
-            let imagesRef = storageRef.child(proImgFullPath)
-
-            // FirebaseStrageよりプロフィール画像を取得する
-            imagesRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                if let error = error {
-                    print("登録プロフィール画像取得失敗: \(error)")
-                } else if let data = data {
-                    uiImageProf = UIImage(data: data)
-                    AppLoginUserInfo.profileImage = Image(uiImage: uiImageProf!)
-                }
-            }
+    //プロフィール画像取得処理(画像URLから取得)
+    private func getProfileImage(urlString: String) async throws -> Void {
+        guard let url = URL(string: urlString) else {
+            // 不正なURL
+            return
         }
+        // 画像URLを非同期にダウンロード
+        let (data, response) = try await URLSession.shared.data(from: url)
+        // responseのサーバエラーチェック(ステータスコードが200でない場合エラー)
+        guard
+            let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200
+        else {
+            return
+        }
+        // dataをUIImage型に変換できない場合エラー
+        guard let image = UIImage(data: data) else {
+            return
+        }
+        // 取得した画像をセット
+        AppLoginUserInfo.profileImage = image
     }
+
 
 
     //ログインエラー
