@@ -7,6 +7,7 @@ import SwiftUI
 //Firebaseコレクション名
 struct FirestoreCollections {
     static let users = "users"
+    static let checkUserUnique = "checkUniqueUser"
 }
 //Firebaseフィールド名
 struct FirestoreFields {
@@ -19,6 +20,9 @@ struct FirestoreFields {
         static let profileImageFileName = "profileImageFileName"
         static let createDate = "createDate"
         static let updateDate = "updateDate"
+    }
+    struct CheckUniqueUser {
+        static let dummy = "dummy"
     }
 }
 
@@ -36,5 +40,4 @@ struct AppImageName {
 struct FileExtension {
     static let PngFileEx = ".png"
 }
-
 

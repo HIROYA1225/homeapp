@@ -11,20 +11,78 @@ import GoogleSignIn
 
 @main
 struct homeappApp: App {
-
+    
     //Firebase初期処理
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     //ログインユーザ情報保持クラス
     @StateObject var AppLoginUserInfo = LoginUserInfo()
+    // ログイン状態監視用リスナー
+    @State private var authListenerHandle: AuthStateDidChangeListenerHandle?
+    // Firebaseの状態を確認するための状態変数
+    @State private var viewSelector: Int? = nil
 
     var body: some Scene {
         WindowGroup {
-            // ログイン画面
-            loginView()
-                .environmentObject(AppLoginUserInfo)
+            Group {
+                if viewSelector == nil {
+                    // ローディング画面を表示する
+                    LoadingView()
+                } else {
+                    switch viewSelector {
+                    case 0:
+                        // ログインしていない場合
+                        loginView().environmentObject(AppLoginUserInfo)
+                    case 1:
+                        // ログイン済み、Email未認証の場合
+                        iraiEmailConfirmView().environmentObject(AppLoginUserInfo)
+                    case 2:
+                        // ログイン済み、Email認証済み、Usersコレクション名前未登録の場合
+                        RegisterNameOnlyView().environmentObject(AppLoginUserInfo)
+                    case 3:
+                        // ログイン済み、Email認証済み、Usersコレクション名前登録済みの場合
+                        homeView().environmentObject(AppLoginUserInfo)
+                    default:
+                        loginView().environmentObject(AppLoginUserInfo)
+                    }
+                }
+            }
+            .onAppear {
+                // インスタンス化させる必要あり
+                let loginChecker = LoginStatusChecker()
+                Task {
+                    do {
+                        // ログインユーザ状態チェック
+                        viewSelector = try await loginChecker.checkLoginStatus()
+                        // Firebase Authの状態変更を監視
+                        authListenerHandle = Auth.auth().addStateDidChangeListener { auth, user in
+                            Task {
+                                do {
+                                    // 状態が変更されたときにログインユーザ状態を再チェック
+                                    viewSelector = try await loginChecker.checkLoginStatus()
+                                } catch {
+                                    // todo エラー処理
+                                    print(error)
+                                }
+                            }
+                        }
+                    } catch {
+                        // todo エラー処理
+                        print(error)
+                    }
+                }
+            }
+            .onDisappear {
+                // リスナーを削除します
+                if let handle = authListenerHandle {
+                    Auth.auth().removeStateDidChangeListener(handle)
+                }
+            }
         }
     }
+
+
 }
+
 
 
 // ***************************************************************
@@ -41,4 +99,3 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return GIDSignIn.sharedInstance.handle(url)
     }
 }
-

@@ -21,7 +21,6 @@ struct ProfileView: View {
     @State private var residence = ""  //住所
     @State private var introduction = ""   //紹介文
     @State private var profileImageFileName = ""    //プロフィール画像ファイル名
-
     @State private var returnMessage = ""
 
     //画像選択 定義
@@ -61,6 +60,25 @@ struct ProfileView: View {
     @FocusState private var focusedField: Field?
 
     var body: some View {
+        //==================================
+                        // todo あとで削除　強制ログアウトボタン
+                        Button(action: {
+                            do {
+                                if try logout(AppLoginUserInfo: AppLoginUserInfo) {
+                                    print("ログアウト成功")
+                                }
+                            } catch {
+                                print("Failed to sign out")
+                            }
+                        }){
+                            Text("テスト用ログアウトボタン")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.red)
+                                .cornerRadius(15.0)
+                        }
+        //==================================
         VStack(spacing:30){
             //プロフィール画像
             ZStack {
@@ -198,7 +216,6 @@ struct ProfileView: View {
                             // todo ユーザ情報の更新にエラーが発生しました。というようなアラートを表示
                             print(error)
                             self.returnMessage = "ユーザ情報の更新にエラーが発生しました。"
-
                         }
                     }
                 }){
@@ -306,11 +323,8 @@ struct ProfileView: View {
                     }
                 }
             }
-
         }
-
     }
-
 }
 
 

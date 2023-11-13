@@ -12,7 +12,7 @@ struct reportView: View {
     @State private var selectedIndex = 0
     @State private var completeAlert = false   // 完了アラートの表示フラグ
     @State private var deleteAlert = false   // 削除アラートの表示フラグ
-        
+
     let reasons = ["プロフィール画像が不適切", "ユーザー名が不適切", "褒め言葉が不適切", "その他"]  // 通報理由リスト
     let userImageWidth: CGFloat = 100
     let remarksWidth: CGFloat = 220
@@ -31,16 +31,16 @@ struct reportView: View {
                 .scaledToFit()
                 .frame(width: userImageWidth, height: userImageWidth)
                 .foregroundColor(.black)
-            
+
             HStack{
                 Text("通報する理由を以下から選択して下さい。")
                     .frame(width: screenWidth, height: 15)
             }
-            
+
             VStack {
                 RadioButton(selectedIndex: $selectedIndex, axis: .vertical, texts: reasons)
             }
-        
+
             VStack{
                 Text("備考")
                     .frame(width: remarksWidth, height: 15, alignment:.leading)
@@ -48,13 +48,12 @@ struct reportView: View {
                     .keyboardType(.default)
                     .frame(width: remarksWidth,height: 100,alignment: .topLeading)
                     .border(Color.black,width: 1)
-                    //画面触ったらキーボード閉じる処理
+                //画面触ったらキーボード閉じる処理
                     .focused($focusedField, equals: .introduction)
                     .onTapGesture {
-                       focusedField = .introduction
+                        focusedField = .introduction
                     }
             }
-            
             //通報ボタン
             Button("通報") {
                 self.completeAlert = true          // タップされたら表示フラグをtrueにする
@@ -66,23 +65,22 @@ struct reportView: View {
             .cornerRadius(20.0)
             .alert(isPresented: $completeAlert) {  // アラートの表示条件設定
                 Alert(title: Text("通報しました。"),     // アラートの定義
-                    message: Text("ご協力ありがとうございました。"))
+                      message: Text("ご協力ありがとうございました。"))
             }
-         
             Button("削除アラート表示") {    //削除アラート表示用ボタン 仮置き
-                        self.deleteAlert = true
-                    }
-                    .alert("現在の内容は削除されます。", isPresented: $deleteAlert){     //アラート内容
-                        Button("キャンセル", role: .cancel){
-                                        // キャンセルが押された時の処理
-                        }
-                        Button("削除", role: .destructive){
-                                        // データ削除処理
-                        }
-                    } message: {
-                        Text("よろしいですか？")    //確認メッセージ
-                    }
-            
+                self.deleteAlert = true
+            }
+            .alert("現在の内容は削除されます。", isPresented: $deleteAlert){     //アラート内容
+                Button("キャンセル", role: .cancel){
+                    // キャンセルが押された時の処理
+                }
+                Button("削除", role: .destructive){
+                    // データ削除処理
+                }
+            } message: {
+                Text("よろしいですか？")    //確認メッセージ
+            }
+
         }
         //画面触ったらキーボード閉じる処理
         .onTapGesture {
@@ -102,7 +100,7 @@ struct RadioButtonModel: Identifiable, Hashable {
     let id = UUID()
     let index: Int
     let text: String
-    
+
     init(index: Int, text: String) {
         self.index = index
         self.text = text
@@ -110,20 +108,20 @@ struct RadioButtonModel: Identifiable, Hashable {
 }
 
 struct RadioButton: View {
-    
+
     enum Axis {
         case horizontal
         case vertical
     }
-    
+
     @Binding var selectedIndex: Int
     private let axis: Axis
     private var models: [RadioButtonModel] = []
-    
+
     init(selectedIndex: Binding<Int>, axis: Axis, texts: [String]) {
         self._selectedIndex = selectedIndex
         self.axis = axis
-        
+
         var index = 0
         texts.forEach { text in
             let model = RadioButtonModel(index: index, text: text)
@@ -131,7 +129,7 @@ struct RadioButton: View {
             index += 1
         }
     }
-    
+
     var body: some View {
         if axis == .vertical {
             return configureVertical()
@@ -139,7 +137,7 @@ struct RadioButton: View {
             return configureHorizontal()
         }
     }
-    
+
     private func configureHorizontal() -> AnyView {
         return AnyView(
             HStack {
@@ -147,7 +145,7 @@ struct RadioButton: View {
             }
         )
     }
-    
+
     private func configureVertical() -> AnyView {
         return AnyView(
             VStack(alignment: .leading) {
@@ -155,7 +153,7 @@ struct RadioButton: View {
             }
         )
     }
-    
+
     private func configure() -> AnyView {
         return AnyView(
             ForEach(models) { model in
