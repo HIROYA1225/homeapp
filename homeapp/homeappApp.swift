@@ -41,7 +41,7 @@ struct homeappApp: App {
                             RegisterNameOnlyView().environmentObject(AppLoginUserInfo)
                         case 3:
                             // ログイン済み、Email認証済み、Usersコレクション名前登録済みの場合
-                            homeView().environmentObject(AppLoginUserInfo)
+                            tabView().environmentObject(AppLoginUserInfo)
                         default:
                             loginView().environmentObject(AppLoginUserInfo)
                         }

@@ -60,25 +60,6 @@ struct ProfileView: View {
     @FocusState private var focusedField: Field?
 
     var body: some View {
-        //==================================
-                        // todo あとで削除　強制ログアウトボタン
-                        Button(action: {
-                            do {
-                                if try logout(AppLoginUserInfo: AppLoginUserInfo) {
-                                    print("ログアウト成功")
-                                }
-                            } catch {
-                                print("Failed to sign out")
-                            }
-                        }){
-                            Text("テスト用ログアウトボタン")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(15.0)
-                        }
-        //==================================
         VStack(spacing:30){
             //プロフィール画像
             ZStack {
@@ -224,6 +205,23 @@ struct ProfileView: View {
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
+                        .cornerRadius(20.0)
+                }
+                // todo あとで削除　強制ログアウトボタン
+                Button(action: {
+                    do {
+                        if try logout(AppLoginUserInfo: AppLoginUserInfo) {
+                            print("ログアウト成功")
+                        }
+                    } catch {
+                        print("Failed to sign out")
+                    }
+                }){
+                    Text("ログアウト")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.red)
                         .cornerRadius(20.0)
                 }
             }
