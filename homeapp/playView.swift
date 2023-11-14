@@ -22,6 +22,7 @@ struct PlayView: View {
 
     // ボタンのテキスト
     @State var buttonText = "Play"
+    
 
     var body: some View {
         VStack {
@@ -40,7 +41,7 @@ struct PlayView: View {
                     // 音声プレイヤーを初期化
                     self.initAudioPlayer()
                 }
-
+                
                 if self.audioPlayer?.isPlaying == true {
                     // 音声が再生中なら停止する
                     self.audioPlayer?.stop()

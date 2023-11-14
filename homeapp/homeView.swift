@@ -13,27 +13,10 @@ struct homeView: View {
     @State private var isPlay = false
     //ログイン情報
     @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
+    
+    @State private var isShowSheet = false
 
     var body: some View {
-        //==================================
-//        // todo あとで削除　強制ログアウトボタン
-//        Button(action: {
-//            do {
-//                if try logout(AppLoginUserInfo: AppLoginUserInfo) {
-//                    print("ログアウト成功")
-//                }
-//            } catch {
-//                print("Failed to sign out")
-//            }
-//        }){
-//            Text("テスト用ログアウトボタン")
-//                .font(.headline)
-//                .foregroundColor(.white)
-//                .padding()
-//                .background(Color.red)
-//                .cornerRadius(15.0)
-//        }
-        //==================================
         VStack {
             ZStack{
                 Liquid()
@@ -52,10 +35,26 @@ struct homeView: View {
                     .opacity(0.6)
             }
             .padding(.bottom,100)
-            Button(action:{
-                self.isPlay = !isPlay
-            }){
-                Image(systemName: "speaker.wave.3.fill")
+            VStack(){
+                Button(action:{
+                    self.isPlay = !isPlay
+                }){
+                    Image(systemName: "speaker.wave.3.fill")
+                }
+                .padding(.bottom,10)
+                Button("評価ボタン") {
+                    isShowSheet.toggle()
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(20.0)
+                .sheet(isPresented: $isShowSheet) {
+
+                    HalfModalView(isPresented: $isShowSheet)
+                        .presentationDetents([.medium]) // ⬅︎
+                }
             }
         }
         .onAppear {
@@ -83,5 +82,53 @@ struct homeView: View {
 struct homeView_Previews: PreviewProvider {
     static var previews: some View {
         homeView()
+    }
+}
+struct HalfModalView: View {
+    @Binding var isPresented: Bool
+    @State private var selectedNumber = 0
+    @State private var comment = ""
+
+    var body: some View {
+        VStack {
+            Spacer()
+
+            VStack(spacing: 20) {
+                Picker("Number", selection: $selectedNumber) {
+                    ForEach(0..<6) { number in
+                        Text("\(number)").tag(number)
+                    }
+                }
+                .labelsHidden()
+                .pickerStyle(WheelPickerStyle())
+
+                TextField("Comment", text: $comment)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+
+                HStack {
+                    Button("評価") {
+                        print("Number: \(selectedNumber), Comment: \(comment)")
+                        isPresented = false
+                    }
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+
+                    Button("キャンセル") {
+                        isPresented = false
+                    }
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.gray)
+                    .cornerRadius(10)
+                }
+            }
+            .padding(.horizontal)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2)
+            .background(Color.white)
+            .cornerRadius(20)
+        }
     }
 }
