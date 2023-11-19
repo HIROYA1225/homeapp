@@ -207,23 +207,6 @@ struct ProfileView: View {
                                 .background(Color.blue)
                                 .cornerRadius(20.0)
                         }
-                        // todo あとで削除　強制ログアウトボタン
-                        Button(action: {
-                            do {
-                                if try logout(AppLoginUserInfo: AppLoginUserInfo) {
-                                    print("ログアウト成功")
-                                }
-                            } catch {
-                                print("Failed to sign out")
-                            }
-                        }){
-                            Text("ログアウト")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.red)
-                                .cornerRadius(20.0)
-                        }
                     }
                 }
                 if isOpenSideMenu {

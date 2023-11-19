@@ -7,40 +7,9 @@
 
 import Foundation
 import SwiftUI
-struct SideMenuTest: View {
-    @State var isOpenSideMenu: Bool = false
-    var body: some View {
-        NavigationView {
-            ZStack{
-                Color.clear
-                VStack{
-                    Text("Hello, World!")
-                        .font(.largeTitle)
-                        .foregroundColor(.black)
-                        .padding()
-                    
-                    Spacer()
-                }
-                if isOpenSideMenu {
-                    SideMenuView(isOpen: $isOpenSideMenu)
-                        .edgesIgnoringSafeArea(.all)
-                        .transition(.move(edge: .leading))
-                        .animation(.easeInOut(duration: 0.25))
-                }
-            }
-            .navigationBarItems(leading: (
-                Button(action: {
-                    self.isOpenSideMenu.toggle()
-                }) {
-                    Image(systemName: "line.horizontal.3")
-                        .imageScale(.large)
-                }
-            ))
-        }
-    }
-}
 
 struct SideMenuView: View {
+    @EnvironmentObject var AppLoginUserInfo: LoginUserInfo
     @Binding var isOpen: Bool
     let width: CGFloat = 270
     var body: some View {
@@ -59,13 +28,28 @@ struct SideMenuView: View {
             HStack {
                 VStack() {
                     NavigationLink(destination: ChangeMailAddress()) {
-                        SideMenuContentView(topPadding: 100, systemName: "person", text: "Profile")
+                        SideMenuContentView(topPadding: 100,text: "メースアドレス変更")
                     }
                     NavigationLink(destination: ChangePass()) {
-                        SideMenuContentView(systemName: "bookmark", text: "Bookmark")
+                        SideMenuContentView(text: "パスワード変更")
                     }
                     NavigationLink(destination: RegisterPremium()) {
-                        SideMenuContentView(systemName: "gear", text: "Setting")
+                        SideMenuContentView(text: "プレミアム会員登録")
+                    }
+                    Spacer()
+                    Button(action: {
+                        do {
+                            if try logout(AppLoginUserInfo: AppLoginUserInfo) {
+                                print("ログアウト成功")
+                            }
+                        } catch {
+                            print("Failed to sign out")
+                        }
+                    }){
+                        SideMenuContentView(text: "ログアウト")
+                    }
+                    NavigationLink(destination: DeleteUser()) {
+                        SideMenuContentView(text: "退会")
                     }
                     Spacer()
                     
@@ -81,14 +65,9 @@ struct SideMenuView: View {
 }
 struct SideMenuContentView: View {
     var topPadding: CGFloat = 0
-    var systemName: String
     var text: String
     var body: some View {
         HStack {
-            Image(systemName: systemName)
-                .foregroundColor(.gray)
-                .imageScale(.large)
-                .frame(width: 35)
             Text(text)
                 .foregroundColor(.gray)
                 .font(.headline)
@@ -100,10 +79,3 @@ struct SideMenuContentView: View {
         .padding(.trailing, 70)
     }
 }
-//プレビュー表示
-struct SideMenuTest_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenuTest()
-    }
-}
-

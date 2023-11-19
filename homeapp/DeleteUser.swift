@@ -7,8 +7,8 @@
 
 import Foundation
 import SwiftUI
-struct Logout: View {
+struct DeleteUser: View {
     var body: some View {
-        Text("ログアウト")
+        Text("退会画面")
     }
 }
