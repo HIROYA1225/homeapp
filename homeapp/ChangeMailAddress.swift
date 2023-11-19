@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 struct ChangeMailAddress: View {
     var body: some View {
-        Text("メールアドレス変更")
+        Text("メールアドレス変更画面")
             .background(Color.pink)
     }
 }

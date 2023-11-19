@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 struct RegisterPremium: View {
     var body: some View {
-        Text("プレミアム会員登録")
+        Text("プレミアム会員登録画面")
             .background(Color.yellow)
     }
 }

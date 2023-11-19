@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 struct ChangePass: View {
     var body: some View {
-        Text("パスワード変更")
+        Text("パスワード変更画面")
             .background(Color.blue)
     }
 }
