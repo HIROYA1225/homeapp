@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/hiro/XCode/HOMEAPP/homeapp/homeapp/RegisterPremium.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/hiro/XCode/HOMEAPP/homeapp/homeapp/ChangeMailAddress.swift">
+   </FileRef>
+   <FileRef
       location = "group:homeapp.xcodeproj">
    </FileRef>
    <FileRef

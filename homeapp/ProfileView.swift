@@ -50,6 +50,8 @@ struct ProfileView: View {
     private let itemHeight:CGFloat = 15     //項目高さ
     private let imageWidth:CGFloat = 120   //画像
     private let introWidth:CGFloat = 220   //画像
+    
+    @State var isOpenSideMenu: Bool = false
 
     //画面触ったらキーボード閉じる処理の準備
     enum Field: Hashable {
@@ -60,181 +62,195 @@ struct ProfileView: View {
     @FocusState private var focusedField: Field?
 
     var body: some View {
-        VStack(spacing:30){
-            //プロフィール画像
+        NavigationView{
             ZStack {
-                //初期画像(画像を登録していない場合)
-                Image(systemName: "person.crop.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: imageWidth, height: imageWidth)
-                    .foregroundColor(.black)
-                // 画像選択画面で選択した画像を表示
-                if image != nil {
-                    Image(uiImage: image!)
-                        .resizable()
-                        .frame(width: imageWidth, height: imageWidth)
-                        .clipShape(Circle())
-                    // 初期画像(画像の登録をすでに行なっている場合)
-                } else if  AppLoginUserInfo.profileImage != nil {
-                    Image(uiImage: AppLoginUserInfo.profileImage!)
-                        .resizable()
-                        .frame(width: imageWidth, height: imageWidth)
-                        .clipShape(Circle())
-                }
-
-                //プロフィール画像ボタン
-                Button(action: {
-                    showingImagePicker = true   //画像選択画面表示
-                }){
-                    //ボタンに重なるImageらしい、書かないとエラーになる。画像は透明にしているので、何をセットしてもいい。
+                VStack(){
+                //プロフィール画像
+                    //初期画像(画像を登録していない場合)
                     Image(systemName: "person.crop.circle")
                         .resizable()
+                        .scaledToFit()
                         .frame(width: imageWidth, height: imageWidth)
-                        .clipShape(Circle())
-                        .opacity(0)
+                        .foregroundColor(.black)
+                    // 画像選択画面で選択した画像を表示
+                    if image != nil {
+                        Image(uiImage: image!)
+                            .resizable()
+                            .frame(width: imageWidth, height: imageWidth)
+                            .clipShape(Circle())
+                        // 初期画像(画像の登録をすでに行なっている場合)
+                    } else if  AppLoginUserInfo.profileImage != nil {
+                        Image(uiImage: AppLoginUserInfo.profileImage!)
+                            .resizable()
+                            .frame(width: imageWidth, height: imageWidth)
+                            .clipShape(Circle())
+                    }
+                    
+                    //プロフィール画像ボタン
+                    Button(action: {
+                        showingImagePicker = true   //画像選択画面表示
+                    }){
+                        //ボタンに重なるImageらしい、書かないとエラーになる。画像は透明にしているので、何をセットしてもいい。
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .frame(width: imageWidth, height: imageWidth)
+                            .clipShape(Circle())
+                            .opacity(0)
+                    }
+                    
+                
+                    //名前
+                    HStack{
+                        Text("Name")    //項目"Name"
+                            .frame(width: itemWidth, height: itemHeight, alignment:.leading)
+                        VStack{
+                            TextField("", text:self.$userName)
+                                .keyboardType(.default)
+                                .frame(width: recWidth, height: itemHeight)
+                            //画面触ったらキーボード閉じる処理
+                                .focused($focusedField, equals: .userName)
+                                .onTapGesture {
+                                    focusedField = .userName
+                                }
+                            Rectangle()
+                                .frame(width: recWidth,height: recHeight)
+                                .foregroundColor(.black)
+                        }
+                    }
+                    
+                    HStack{
+                        Text("Gender")
+                            .frame(width: itemWidth, height: itemHeight, alignment:.leading)
+                        VStack{
+                            Picker("", selection: self.$gender) {
+                                ForEach(genders, id: \.self) { item in
+                                    Text(item)
+                                }
+                            }
+                            .frame(width: recWidth, height: itemHeight, alignment:.leading)
+                            Rectangle()
+                                .frame(width: recWidth,height: recHeight).foregroundColor(.black)
+                        }
+                    }
+                    
+                    HStack{
+                        Text("Age")
+                            .frame(width: itemWidth, height: itemHeight, alignment:.leading)
+                        VStack{
+                            TextField("", text:self.$age)
+                                .keyboardType(.numberPad)
+                                .frame(width: recWidth, height: itemHeight)
+                            //画面触ったらキーボード閉じる処理
+                                .focused($focusedField, equals: .age)
+                                .onTapGesture {
+                                    focusedField = .age
+                                }
+                            Rectangle()
+                                .frame(width: recWidth,height: recHeight).foregroundColor(.black)
+                        }
+                    }
+                    
+                    HStack{
+                        Text("Location")
+                            .frame(width: itemWidth, height: itemHeight, alignment:.leading)
+                        VStack{
+                            Picker("", selection: self.$residence) {
+                                ForEach(prefectures, id: \.self) { item in
+                                    Text(item)
+                                }
+                            }
+                            .frame(width: recWidth, height: itemHeight, alignment:.leading)
+                            Rectangle()
+                                .frame(width: recWidth,height: recHeight).foregroundColor(.black)
+                        }
+                    }
+                    
+                    VStack{
+                        Text("About")
+                            .frame(width: introWidth, height: itemHeight, alignment:.leading)
+                        TextEditor(text:self.$introduction)
+                            .keyboardType(.default)
+                            .frame(width: introWidth,height: 150,alignment: .topLeading)
+                            .border(Color.black,width: 1)
+                        //画面触ったらキーボード閉じる処理
+                            .focused($focusedField, equals: .introduction)
+                            .onTapGesture {
+                                focusedField = .introduction
+                            }
+                    }
+                    //決定ボタン
+                    HStack(){
+                        Button(action:{
+                            Task {
+                                do {
+                                    //ユーザ情報変更
+                                    if try await updateUser(userName: userName, gender: gender, age: age, residence: residence, introduction: introduction, image: image!) {
+                                        // todo ユーザ情報の更新が成功しました。というようなアラートを表示と画面遷移
+                                        self.returnMessage = "更新されました。"
+                                        
+                                    } else {
+                                        // todo ユーザ情報の更新にエラーが発生しました。というようなアラートを表示
+                                        self.returnMessage = "ユーザ情報の更新にエラーが発生しました。"
+                                        
+                                    }
+                                } catch {
+                                    // todo ユーザ情報の更新にエラーが発生しました。というようなアラートを表示
+                                    print(error)
+                                    self.returnMessage = "ユーザ情報の更新にエラーが発生しました。"
+                                }
+                            }
+                        }){
+                            Text("決定")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(20.0)
+                        }
+                        // todo あとで削除　強制ログアウトボタン
+                        Button(action: {
+                            do {
+                                if try logout(AppLoginUserInfo: AppLoginUserInfo) {
+                                    print("ログアウト成功")
+                                }
+                            } catch {
+                                print("Failed to sign out")
+                            }
+                        }){
+                            Text("ログアウト")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.red)
+                                .cornerRadius(20.0)
+                        }
+                    }
+                }
+                if isOpenSideMenu {
+                    SideMenuView(isOpen: $isOpenSideMenu)
+                        .edgesIgnoringSafeArea(.all)
+                        .transition(.move(edge: .leading))
+                        .animation(.easeInOut(duration: 0.25))
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $image)
             }
-
-            //名前
-            HStack{
-                Text("Name")    //項目"Name"
-                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
-                VStack{
-                    TextField("", text:self.$userName)
-                        .keyboardType(.default)
-                        .frame(width: recWidth, height: itemHeight)
-                    //画面触ったらキーボード閉じる処理
-                        .focused($focusedField, equals: .userName)
-                        .onTapGesture {
-                            focusedField = .userName
-                        }
-                    Rectangle()
-                        .frame(width: recWidth,height: recHeight)
-                        .foregroundColor(.black)
-                }
+            .onAppear() {
+                //初期画面表示用：ログインユーザ情報取得
+                getLoginUserInfo()
             }
-
-            HStack{
-                Text("Gender")
-                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
-                VStack{
-                    Picker("", selection: self.$gender) {
-                        ForEach(genders, id: \.self) { item in
-                            Text(item)
-                        }
-                    }
-                    .frame(width: recWidth, height: itemHeight, alignment:.leading)
-                    Rectangle()
-                        .frame(width: recWidth,height: recHeight).foregroundColor(.black)
-                }
-            }
-
-            HStack{
-                Text("Age")
-                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
-                VStack{
-                    TextField("", text:self.$age)
-                        .keyboardType(.numberPad)
-                        .frame(width: recWidth, height: itemHeight)
-                    //画面触ったらキーボード閉じる処理
-                        .focused($focusedField, equals: .age)
-                        .onTapGesture {
-                            focusedField = .age
-                        }
-                    Rectangle()
-                        .frame(width: recWidth,height: recHeight).foregroundColor(.black)
-                }
-            }
-
-            HStack{
-                Text("Location")
-                    .frame(width: itemWidth, height: itemHeight, alignment:.leading)
-                VStack{
-                    Picker("", selection: self.$residence) {
-                        ForEach(prefectures, id: \.self) { item in
-                            Text(item)
-                        }
-                    }
-                    .frame(width: recWidth, height: itemHeight, alignment:.leading)
-                    Rectangle()
-                        .frame(width: recWidth,height: recHeight).foregroundColor(.black)
-                }
-            }
-
-            VStack{
-                Text("About")
-                    .frame(width: introWidth, height: itemHeight, alignment:.leading)
-                TextEditor(text:self.$introduction)
-                    .keyboardType(.default)
-                    .frame(width: introWidth,height: 150,alignment: .topLeading)
-                    .border(Color.black,width: 1)
-                //画面触ったらキーボード閉じる処理
-                    .focused($focusedField, equals: .introduction)
-                    .onTapGesture {
-                        focusedField = .introduction
-                    }
-            }
-            //決定ボタン
-            HStack(){
-                Button(action:{
-                    Task {
-                        do {
-                            //ユーザ情報変更
-                            if try await updateUser(userName: userName, gender: gender, age: age, residence: residence, introduction: introduction, image: image!) {
-                                // todo ユーザ情報の更新が成功しました。というようなアラートを表示と画面遷移
-                                self.returnMessage = "更新されました。"
-
-                            } else {
-                                // todo ユーザ情報の更新にエラーが発生しました。というようなアラートを表示
-                                self.returnMessage = "ユーザ情報の更新にエラーが発生しました。"
-
-                            }
-                        } catch {
-                            // todo ユーザ情報の更新にエラーが発生しました。というようなアラートを表示
-                            print(error)
-                            self.returnMessage = "ユーザ情報の更新にエラーが発生しました。"
-                        }
-                    }
-                }){
-                    Text("決定")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(20.0)
-                }
-                // todo あとで削除　強制ログアウトボタン
+            .navigationBarItems(leading: (
                 Button(action: {
-                    do {
-                        if try logout(AppLoginUserInfo: AppLoginUserInfo) {
-                            print("ログアウト成功")
-                        }
-                    } catch {
-                        print("Failed to sign out")
-                    }
-                }){
-                    Text("ログアウト")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(20.0)
+                    self.isOpenSideMenu.toggle()
+                }) {
+                    Image(systemName: "line.horizontal.3")
+                        .imageScale(.large)
                 }
-            }
-        }
-        .onAppear() {
-            //初期画面表示用：ログインユーザ情報取得
-            getLoginUserInfo()
-        }
-        //    画面触ったらキーボード閉じる処理
-        .onTapGesture {
-            focusedField = nil
+            ))
         }
     }
+    
 
     //ログインユーザ情報取得
     private func getLoginUserInfo() {

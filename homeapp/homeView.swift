@@ -88,12 +88,21 @@ struct HalfModalView: View {
     @Binding var isPresented: Bool
     @State private var selectedNumber = 0
     @State private var comment = ""
+    @State private var isReport = false
 
     var body: some View {
         VStack {
             Spacer()
 
-            VStack(spacing: 20) {
+            VStack() {
+                Button(action:{
+                    isReport = true
+                }){
+                    Image(systemName: "bell.fill")
+                }
+                NavigationLink(destination: reportView(), isActive: $isReport) {
+                    EmptyView()
+                }
                 Picker("Number", selection: $selectedNumber) {
                     ForEach(0..<6) { number in
                         Text("\(number)").tag(number)

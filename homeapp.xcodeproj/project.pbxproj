@@ -14,6 +14,13 @@
 		45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F892AC46CBF00B7F521 /* playView.swift */; };
 		45904B2A2AFFC2D0007AFF8B /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45904B292AFFC2D0007AFF8B /* mp3 */; };
 		45A63F6C2B03B16F0000C3AE /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F6B2B03B16F0000C3AE /* RecordView.swift */; };
+		45A63F6E2B08FBEA0000C3AE /* ProfileMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */; };
+		45A63F722B090CF00000C3AE /* ChangePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F712B090CF00000C3AE /* ChangePass.swift */; };
+		45A63F742B090D610000C3AE /* RegisterPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F732B090D600000C3AE /* RegisterPremium.swift */; };
+		45A63F762B090D6F0000C3AE /* ChangeMailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F752B090D6F0000C3AE /* ChangeMailAddress.swift */; };
+		45A63F782B090ED50000C3AE /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F772B090ED50000C3AE /* Logout.swift */; };
+		45A63F7A2B090FD80000C3AE /* ChangeMailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F792B090FD80000C3AE /* ChangeMailAddress.swift */; };
+		45A63F7C2B09D1430000C3AE /* SideMenuTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F7B2B09D1430000C3AE /* SideMenuTest.swift */; };
 		45B255632A94DACE00F94892 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255622A94DACE00F94892 /* loginView.swift */; };
 		45B255672A94FBF100F94892 /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255662A94FBF100F94892 /* homeView.swift */; };
 		45B255692A94FC3900F94892 /* registerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255682A94FC3900F94892 /* registerView.swift */; };
@@ -68,6 +75,13 @@
 		45859F892AC46CBF00B7F521 /* playView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playView.swift; sourceTree = "<group>"; };
 		45904B292AFFC2D0007AFF8B /* mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = mp3; path = homeapp/mp3; sourceTree = SOURCE_ROOT; };
 		45A63F6B2B03B16F0000C3AE /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
+		45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuView.swift; sourceTree = "<group>"; };
+		45A63F712B090CF00000C3AE /* ChangePass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePass.swift; sourceTree = "<group>"; };
+		45A63F732B090D600000C3AE /* RegisterPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterPremium.swift; path = /Users/hiro/XCode/HOMEAPP/homeapp/homeapp/RegisterPremium.swift; sourceTree = "<absolute>"; };
+		45A63F752B090D6F0000C3AE /* ChangeMailAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeMailAddress.swift; path = /Users/hiro/XCode/HOMEAPP/homeapp/homeapp/ChangeMailAddress.swift; sourceTree = "<absolute>"; };
+		45A63F772B090ED50000C3AE /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
+		45A63F792B090FD80000C3AE /* ChangeMailAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeMailAddress.swift; path = /Users/hiro/XCode/HOMEAPP/homeapp/homeapp/ChangeMailAddress.swift; sourceTree = "<absolute>"; };
+		45A63F7B2B09D1430000C3AE /* SideMenuTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTest.swift; sourceTree = "<group>"; };
 		45B255622A94DACE00F94892 /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		45B255662A94FBF100F94892 /* homeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeView.swift; sourceTree = "<group>"; };
 		45B255682A94FC3900F94892 /* registerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerView.swift; sourceTree = "<group>"; };
@@ -154,7 +168,13 @@
 				FC075E4A2B0046E30007A225 /* Models */,
 				45B255622A94DACE00F94892 /* loginView.swift */,
 				45A63F6B2B03B16F0000C3AE /* RecordView.swift */,
+				45A63F752B090D6F0000C3AE /* ChangeMailAddress.swift */,
 				330D241C2ABB22E900269B40 /* ProfileView.swift */,
+				45A63F7B2B09D1430000C3AE /* SideMenuTest.swift */,
+				45A63F712B090CF00000C3AE /* ChangePass.swift */,
+				45A63F792B090FD80000C3AE /* ChangeMailAddress.swift */,
+				45A63F732B090D600000C3AE /* RegisterPremium.swift */,
+				45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */,
 				33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */,
 				3304516B2AD151E10096F704 /* reportView.swift */,
 				45B255682A94FC3900F94892 /* registerView.swift */,
@@ -169,6 +189,7 @@
 				FCBFCF802AF72D0C004CB009 /* loadingView.swift */,
 				FCBFCF822AF72D28004CB009 /* iraiEmailConfirmView.swift */,
 				FCBFCF842AF731DB004CB009 /* RegisterNameOnlyView.swift */,
+				45A63F772B090ED50000C3AE /* Logout.swift */,
 			);
 			path = homeapp;
 			sourceTree = "<group>";
@@ -307,19 +328,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45A63F722B090CF00000C3AE /* ChangePass.swift in Sources */,
+				45A63F7A2B090FD80000C3AE /* ChangeMailAddress.swift in Sources */,
 				45859F882AC4684300B7F521 /* tabView.swift in Sources */,
+				45A63F782B090ED50000C3AE /* Logout.swift in Sources */,
 				45FDB9C82A8279ED0062F259 /* ContentView.swift in Sources */,
 				3304516C2AD151E10096F704 /* reportView.swift in Sources */,
 				45A63F6C2B03B16F0000C3AE /* RecordView.swift in Sources */,
+				45A63F7C2B09D1430000C3AE /* SideMenuTest.swift in Sources */,
 				33D06BBE2AEF76DA00D80BB7 /* RankingView.swift in Sources */,
 				FC075E4C2B0046E30007A225 /* LoginUserInfo.swift in Sources */,
 				330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */,
 				FCBFCF812AF72D0C004CB009 /* loadingView.swift in Sources */,
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
+				45A63F742B090D610000C3AE /* RegisterPremium.swift in Sources */,
 				FC075E512B0047C10007A225 /* Util.swift in Sources */,
 				FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */,
+				45A63F6E2B08FBEA0000C3AE /* ProfileMenuView.swift in Sources */,
 				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
 				FCBFCF832AF72D28004CB009 /* iraiEmailConfirmView.swift in Sources */,
+				45A63F762B090D6F0000C3AE /* ChangeMailAddress.swift in Sources */,
 				45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */,
 				FC075E502B0047C10007A225 /* Constants.swift in Sources */,
 				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
