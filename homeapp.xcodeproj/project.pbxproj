@@ -17,7 +17,6 @@
 		45A63F6C2B03B16F0000C3AE /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F6B2B03B16F0000C3AE /* RecordView.swift */; };
 		45A63F6E2B08FBEA0000C3AE /* ProfileMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */; };
 		45A63F722B090CF00000C3AE /* ChangePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F712B090CF00000C3AE /* ChangePass.swift */; };
-		45A63F742B090D610000C3AE /* RegisterPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F732B090D600000C3AE /* RegisterPremium.swift */; };
 		45A63F782B090ED50000C3AE /* DeleteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F772B090ED50000C3AE /* DeleteUser.swift */; };
 		45A63F7C2B09D1430000C3AE /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A63F7B2B09D1430000C3AE /* SideMenu.swift */; };
 		45B255632A94DACE00F94892 /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B255622A94DACE00F94892 /* loginView.swift */; };
@@ -77,7 +76,6 @@
 		45A63F6B2B03B16F0000C3AE /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMenuView.swift; sourceTree = "<group>"; };
 		45A63F712B090CF00000C3AE /* ChangePass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePass.swift; sourceTree = "<group>"; };
-		45A63F732B090D600000C3AE /* RegisterPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterPremium.swift; path = /Users/hiro/XCode/HOMEAPP/homeapp/homeapp/RegisterPremium.swift; sourceTree = "<absolute>"; };
 		45A63F772B090ED50000C3AE /* DeleteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUser.swift; sourceTree = "<group>"; };
 		45A63F7B2B09D1430000C3AE /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		45B255622A94DACE00F94892 /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				330D241C2ABB22E900269B40 /* ProfileView.swift */,
 				45A63F7B2B09D1430000C3AE /* SideMenu.swift */,
 				45A63F712B090CF00000C3AE /* ChangePass.swift */,
-				45A63F732B090D600000C3AE /* RegisterPremium.swift */,
 				45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */,
 				33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */,
 				3304516B2AD151E10096F704 /* reportView.swift */,
@@ -337,7 +334,6 @@
 				330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */,
 				FCBFCF812AF72D0C004CB009 /* loadingView.swift in Sources */,
 				45B255692A94FC3900F94892 /* registerView.swift in Sources */,
-				45A63F742B090D610000C3AE /* RegisterPremium.swift in Sources */,
 				451633492B0CDF0000FF5CAD /* ChangeMail.swift in Sources */,
 				FC075E512B0047C10007A225 /* Util.swift in Sources */,
 				FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */,
