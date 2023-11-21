@@ -27,7 +27,7 @@ struct SideMenuView: View {
             // リスト部分
             HStack {
                 VStack() {
-                    NavigationLink(destination: ChangeMailAddress()) {
+                    NavigationLink(destination: ChangeMail()) {
                         SideMenuContentView(topPadding: 100,text: "メースアドレス変更")
                     }
                     NavigationLink(destination: ChangePass()) {

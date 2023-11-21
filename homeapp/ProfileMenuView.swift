@@ -31,7 +31,7 @@ struct ProfileMenuView: View {
                 }
             }.buttonStyle(.bordered)
                 .navigationDestination(isPresented: $activie, destination: {
-                    ChangeMailAddress()
+                    ChangeMail()
                 })
         }
         
