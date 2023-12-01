@@ -14,235 +14,247 @@ struct RankingView: View {
     
     private let width:CGFloat = 120
 
-
     var body: some View {
-        VStack{
-            // ランキングタイトル
-            Text("ほめランキング")
-                .font(.headline)
-                .foregroundColor(.black)
-                .padding()
-                .background(Color.cyan)
+        NavigationView {        // 画面遷移用
+         
             
-            //期間
-            Picker("", selection: self.$period) {   //プルダウン作成
-                ForEach(period_list, id: \.self) { item in
-                    Text(item)
-                }
-            }
-            
-            HStack(spacing:40){     //spacing:左右の空白
-                //2位ユーザー
-                VStack(spacing:5){
-                    Spacer().frame(height:40)
-                    VStack(spacing:0){
-                        Image(systemName: "crown.fill")     //王冠
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width/3, height: width/3) //画像のサイズ
-                            .foregroundColor(.gray) //画像の色
-                        Image(systemName: "person.crop.circle")     //ユーザーアイコン
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width*2/3, height: width*2/3)
-                            .foregroundColor(.black)
-                    }
-                    Text("ユーザーB")    //ユーザー名
-                    HStack{
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width/8, height: width/8)
-                            .foregroundColor(.red)
-                        Text("2564")
-                    }
-                }
-    
-                //1位ユーザー
-                VStack(spacing:5){
-                    VStack(spacing:0){
-                        Image(systemName: "crown.fill")     //王冠
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width/3, height: width/3)
-                            .foregroundColor(.yellow)
-                        Image(systemName: "person.crop.circle")     //ユーザーアイコン
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width*2/3, height: width*2/3)
-                            .foregroundColor(.black)
-                    }
-                    Text("ユーザーA")    //ユーザー名
-                    HStack{
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width/8, height: width/8)
-                            .foregroundColor(.red)
-                        Text("2564")
-                    }
-                }
-                
-                //3位ユーザー
-                VStack(spacing:5){
-                    Spacer().frame(height:60)
-                    VStack(spacing:0){
-                        Image(systemName: "crown.fill")     //王冠
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width/3, height: width/3)
-                            .foregroundColor(.orange)
-                        Image(systemName: "person.crop.circle")     //ユーザーアイコン
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width*2/3, height: width*2/3)
-                            .foregroundColor(.black)
-                    }
-                    Text("ユーザーC")    //ユーザー名
-                    HStack{
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: width/8, height: width/8)
-                            .foregroundColor(.red)
-                        Text("2564")
-                    }
-                }
-            }
-            
-            //4位以下
             VStack{
-                HStack{
-                    Text("4") //順位
-                    Text("")    //空白
-                    Image(systemName: "person.crop.circle")     //ユーザーアイコン
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("1111")    //いいね数
+                // ランキングタイトル
+                Text("ほめランキング")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .padding()
+                    .background(Color.cyan)
+                
+                //期間
+                Picker("", selection: self.$period) {   //プルダウン作成
+                    ForEach(period_list, id: \.self) { item in
+                        Text(item)
+                    }
                 }
                 
-                HStack{
-                    Text("5")
-                    Text("")
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("111")
+                HStack(spacing:40){     //spacing:左右の空白
+                    //2位ユーザー
+                    VStack(spacing:5){
+                        Spacer().frame(height:40)
+                        VStack(spacing:0){
+                            Image(systemName: "crown.fill")     //王冠
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width/3, height: width/3) //画像のサイズ
+                                .foregroundColor(.gray) //画像の色
+                            // ユーザー画面への遷移
+                            NavigationLink(destination: UserView()) {
+                                    Image(systemName: "person.crop.circle")     //ユーザーアイコン
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: width*2/3, height: width*2/3)
+                                        .foregroundColor(.black)
+                            }
+                        }
+                        Text("ユーザーB")    //ユーザー名
+                        HStack{
+                            Image(systemName: "heart.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width/8, height: width/8)
+                                .foregroundColor(.red)
+                            Text("2564")
+                        }
+                    }
+                    
+                    //1位ユーザー
+                    VStack(spacing:5){
+                        VStack(spacing:0){
+                            Image(systemName: "crown.fill")     //王冠
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width/3, height: width/3)
+                                .foregroundColor(.yellow)
+                            // ユーザー画面への遷移
+                            NavigationLink(destination: UserView()) {
+                                    Image(systemName: "person.crop.circle")     //ユーザーアイコン
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: width*2/3, height: width*2/3)
+                                        .foregroundColor(.black)
+                            }
+                        }
+                        Text("ユーザーA")    //ユーザー名
+                        HStack{
+                            Image(systemName: "heart.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width/8, height: width/8)
+                                .foregroundColor(.red)
+                            Text("2564")
+                        }
+                    }
+                    
+                    //3位ユーザー
+                    VStack(spacing:5){
+                        Spacer().frame(height:60)
+                        VStack(spacing:0){
+                            Image(systemName: "crown.fill")     //王冠
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width/3, height: width/3)
+                                .foregroundColor(.orange)
+                            // ユーザー画面への遷移
+                            NavigationLink(destination: UserView()) {
+                                    Image(systemName: "person.crop.circle")     //ユーザーアイコン
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: width*2/3, height: width*2/3)
+                                        .foregroundColor(.black)
+                            }
+                        }
+                        Text("ユーザーC")    //ユーザー名
+                        HStack{
+                            Image(systemName: "heart.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: width/8, height: width/8)
+                                .foregroundColor(.red)
+                            Text("2564")
+                        }
+                    }
                 }
                 
-                HStack{
-                    Text("6")
-                    Text("")
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
+                //4位以下
+                VStack{
+                    HStack{
+                        Text("4") //順位
+                        Text("")    //空白
+                        Image(systemName: "person.crop.circle")     //ユーザーアイコン
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("1111")    //いいね数
+                    }
+                    
+                    HStack{
+                        Text("5")
+                        Text("")
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("111")
+                    }
+                    
+                    HStack{
+                        Text("6")
+                        Text("")
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("111")
+                    }
+                    
+                    HStack{
+                        Text("7")
+                        Text("")
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("111")
+                    }
+                    
+                    HStack{
+                        Text("8")
+                        Text("")
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("111")
+                    }
+                    
+                    HStack{
+                        Text("9")
+                        Text("")
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("11")
+                    }
+                    
+                    HStack{
+                        Text("10")
+                        Image(systemName: "person.crop.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/4, height: width/4)
+                            .foregroundColor(.black)
+                        Text("ユーザーD")
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: width/6, height: width/6)
+                            .foregroundColor(.red)
+                        Text("1")
+                    }
                     Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("111")
                 }
-                
-                HStack{
-                    Text("7")
-                    Text("")
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("111")
-                }
-                
-                HStack{
-                    Text("8")
-                    Text("")
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("111")
-                }
-                
-                HStack{
-                    Text("9")
-                    Text("")
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("11")
-                }
-                
-                HStack{
-                    Text("10")
-                    Image(systemName: "person.crop.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/4, height: width/4)
-                        .foregroundColor(.black)
-                    Text("ユーザーD")
-                    Spacer()
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: width/6, height: width/6)
-                        .foregroundColor(.red)
-                    Text("1")
-                }
-                Spacer()
+                .font(.headline)
+                .frame(width: width*2, height: width*2.3) //4位以下の枠サイズ
+                .foregroundColor(.black)    //4位以下の文字色
+                .padding()
+                .background(Color.mint)     // 4位以下の背景色
             }
-            .font(.headline)
-            .frame(width: width*2, height: width*2.3) //4位以下の枠サイズ
-            .foregroundColor(.black)    //4位以下の文字色
-            .padding()
-            .background(Color.mint)     // 4位以下の背景色
         }
     }
 }

@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3304516C2AD151E10096F704 /* reportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3304516B2AD151E10096F704 /* reportView.swift */; };
 		330D241D2ABB22E900269B40 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330D241C2ABB22E900269B40 /* ProfileView.swift */; };
+		3396747C2B10676000E7660D /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396747B2B10676000E7660D /* UserView.swift */; };
+		3396747E2B108EC500E7660D /* MembershipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3396747D2B108EC500E7660D /* MembershipView.swift */; };
 		33D06BBE2AEF76DA00D80BB7 /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */; };
 		451633492B0CDF0000FF5CAD /* ChangeMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451633482B0CDF0000FF5CAD /* ChangeMail.swift */; };
 		4516334B2B0CE0A900FF5CAD /* RegistPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4516334A2B0CE0A900FF5CAD /* RegistPremium.swift */; };
@@ -69,6 +71,8 @@
 /* Begin PBXFileReference section */
 		3304516B2AD151E10096F704 /* reportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reportView.swift; sourceTree = "<group>"; };
 		330D241C2ABB22E900269B40 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; usesTabs = 0; };
+		3396747B2B10676000E7660D /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		3396747D2B108EC500E7660D /* MembershipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipView.swift; sourceTree = "<group>"; };
 		33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
 		451633482B0CDF0000FF5CAD /* ChangeMail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMail.swift; sourceTree = "<group>"; };
 		4516334A2B0CE0A900FF5CAD /* RegistPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistPremium.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 				45A63F712B090CF00000C3AE /* ChangePass.swift */,
 				45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */,
 				33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */,
+				3396747B2B10676000E7660D /* UserView.swift */,
+				3396747D2B108EC500E7660D /* MembershipView.swift */,
 				3304516B2AD151E10096F704 /* reportView.swift */,
 				45B255682A94FC3900F94892 /* registerView.swift */,
 				45B255662A94FBF100F94892 /* homeView.swift */,
@@ -341,9 +347,11 @@
 				FC075E512B0047C10007A225 /* Util.swift in Sources */,
 				FCBFCF852AF731DB004CB009 /* RegisterNameOnlyView.swift in Sources */,
 				45A63F6E2B08FBEA0000C3AE /* ProfileMenuView.swift in Sources */,
+				3396747E2B108EC500E7660D /* MembershipView.swift in Sources */,
 				45B255672A94FBF100F94892 /* homeView.swift in Sources */,
 				FCBFCF832AF72D28004CB009 /* iraiEmailConfirmView.swift in Sources */,
 				45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */,
+				3396747C2B10676000E7660D /* UserView.swift in Sources */,
 				4516334B2B0CE0A900FF5CAD /* RegistPremium.swift in Sources */,
 				FC075E502B0047C10007A225 /* Constants.swift in Sources */,
 				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
