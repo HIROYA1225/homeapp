@@ -27,32 +27,11 @@ struct SideMenuView: View {
             // リスト部分
             HStack {
                 VStack() {
-                    NavigationLink(destination: ChangeMail()) {
-                        SideMenuContentView(topPadding: 100,text: "メースアドレス変更")
+                    NavigationLink(destination: SettingView()) {
+                        SideMenuContentView(topPadding: 200,text: "設定")
                     }
-                    NavigationLink(destination: ChangePass()) {
-                        SideMenuContentView(text: "パスワード変更")
-                    }
-                    NavigationLink(destination: RegisterPremium()) {
-                        SideMenuContentView(text: "プレミアム会員登録")
-                    }
+
                     Spacer()
-                    Button(action: {
-                        do {
-                            if try logout(AppLoginUserInfo: AppLoginUserInfo) {
-                                print("ログアウト成功")
-                            }
-                        } catch {
-                            print("Failed to sign out")
-                        }
-                    }){
-                        SideMenuContentView(text: "ログアウト")
-                    }
-                    NavigationLink(destination: DeleteUser()) {
-                        SideMenuContentView(text: "退会")
-                    }
-                    Spacer()
-                    
                 }
                 .frame(width: width)
                 .background(Color(UIColor.systemGray6))

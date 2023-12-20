@@ -14,6 +14,7 @@
 		33D06BBE2AEF76DA00D80BB7 /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */; };
 		451633492B0CDF0000FF5CAD /* ChangeMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451633482B0CDF0000FF5CAD /* ChangeMail.swift */; };
 		4516334B2B0CE0A900FF5CAD /* RegistPremium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4516334A2B0CE0A900FF5CAD /* RegistPremium.swift */; };
+		4572D1762B32F67200ACD693 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572D1752B32F67200ACD693 /* SettingView.swift */; };
 		45859F882AC4684300B7F521 /* tabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F872AC4684300B7F521 /* tabView.swift */; };
 		45859F8A2AC46CBF00B7F521 /* playView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45859F892AC46CBF00B7F521 /* playView.swift */; };
 		45904B2A2AFFC2D0007AFF8B /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 45904B292AFFC2D0007AFF8B /* mp3 */; };
@@ -76,6 +77,7 @@
 		33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
 		451633482B0CDF0000FF5CAD /* ChangeMail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeMail.swift; sourceTree = "<group>"; };
 		4516334A2B0CE0A900FF5CAD /* RegistPremium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistPremium.swift; sourceTree = "<group>"; };
+		4572D1752B32F67200ACD693 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		45859F872AC4684300B7F521 /* tabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabView.swift; sourceTree = "<group>"; };
 		45859F892AC46CBF00B7F521 /* playView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playView.swift; sourceTree = "<group>"; };
 		45904B292AFFC2D0007AFF8B /* mp3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = mp3; path = homeapp/mp3; sourceTree = SOURCE_ROOT; };
@@ -172,6 +174,7 @@
 				45A63F6B2B03B16F0000C3AE /* RecordView.swift */,
 				330D241C2ABB22E900269B40 /* ProfileView.swift */,
 				45A63F7B2B09D1430000C3AE /* SideMenu.swift */,
+				4572D1752B32F67200ACD693 /* SettingView.swift */,
 				45A63F712B090CF00000C3AE /* ChangePass.swift */,
 				45A63F6D2B08FBEA0000C3AE /* ProfileMenuView.swift */,
 				33D06BBD2AEF76DA00D80BB7 /* RankingView.swift */,
@@ -354,6 +357,7 @@
 				3396747C2B10676000E7660D /* UserView.swift in Sources */,
 				4516334B2B0CE0A900FF5CAD /* RegistPremium.swift in Sources */,
 				FC075E502B0047C10007A225 /* Constants.swift in Sources */,
+				4572D1762B32F67200ACD693 /* SettingView.swift in Sources */,
 				45B255632A94DACE00F94892 /* loginView.swift in Sources */,
 				45FDB9C62A8279ED0062F259 /* homeappApp.swift in Sources */,
 			);
